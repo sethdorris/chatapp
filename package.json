@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "SocketIO chatapp",
   "main": "index.js",
-  "scripts": { },
+  "scripts": {
+      "build":  "browserify ./app/app.js -o bundle.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sethdorris/chatapp.git"
