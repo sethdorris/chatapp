@@ -1,5 +1,7 @@
 const gulp = require('gulp');
-const babel = require('gulp-babel');
+const browserify = require('browserify');
+const babelify = require('babelify');
+const source = require('vinyl-source-stream');
 
 gulp.task('server-to-es2015', () => {
     return gulp.src('./server/server.js')
@@ -10,11 +12,11 @@ gulp.task('server-to-es2015', () => {
 });
 
 gulp.task('client-transform', () => {
-    return gulp.src('./client/*.js')
-                .pipe(babel({
-                    presets: ['es2015', 'react']
-                }))
-                .pipe(gulp.dest(__dirname + "/build/client"))
+    var bundler = browserify('./client/app.js')
+                    .transform(babelify, { presets: ['es2015', 'react'] })
+                    .bundle()
+                    .pipe(source('app.js'))
+                    .pipe(gulp.dest(__dirname + "/build/client"));
 });
 
 gulp.task('copy', () => {
