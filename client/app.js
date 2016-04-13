@@ -1,3 +1,11 @@
-const hi = "Hello World";
+import React from 'react';
 
-console.log(hi);
+class HelloWorld extends React.Component {
+    render() {
+        return (
+            <div>Hello World</div>
+            )
+    }
+};
+
+React.Render(<HelloWorld />, document.getElementById('app'));

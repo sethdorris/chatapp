@@ -1,14 +1,5 @@
 const gulp = require('gulp');
 const babel = require('gulp-babel');
-const concat = require('gulp-concat');
-const uglify = require('gulp-uglify');
-const react = require('gulp-react');
-const htmlreplace = require('gulp-html-replace');
-
-const path = {
-    HTML: './index.html',
-    ALL: ['']
-}
 
 gulp.task('server-to-es2015', () => {
     return gulp.src('./server/server.js')
@@ -21,9 +12,8 @@ gulp.task('server-to-es2015', () => {
 gulp.task('client-transform', () => {
     return gulp.src('./client/*.js')
                 .pipe(babel({
-                    presets: ['es2015']
+                    presets: ['es2015', 'react']
                 }))
-                .pipe(react())
                 .pipe(gulp.dest(__dirname + "/build/client"))
 });
 
