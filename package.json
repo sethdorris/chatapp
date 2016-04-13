@@ -4,7 +4,7 @@
   "description": "SocketIO chatapp",
   "main": "index.js",
   "scripts": {
-      "build":  "browserify ./app/app.js -o bundle.js"
+      "build":  ""
   },
   "repository": {
     "type": "git",
