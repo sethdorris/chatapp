@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const browserify = require('browserify');
 const babelify = require('babelify');
 const source = require('vinyl-source-stream');
+const babel = require('gulp-babel');
 
 gulp.task('server-to-es2015', () => {
     return gulp.src('./server/server.js')
