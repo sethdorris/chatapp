@@ -15,5 +15,5 @@ gulp.task('default', () => {
                 .pipe(babel({
                     presets: ['es2015']
                 }))
-                .pipe(gulp.dest(__dirname + "server/build"));
+                .pipe(gulp.dest(__dirname + "/build/server"));
 });
