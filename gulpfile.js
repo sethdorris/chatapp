@@ -25,4 +25,10 @@ gulp.task('copy', () => {
         .pipe(gulp.dest('./build'))
 });
 
+gulp.task('lint', () => {
+    return gulp.src(['./client/*.js', './server/*.js'])
+            .pipe(jshint())
+            .pipe(jshint.reporter('default'))
+})
+
 gulp.task('default', ['server-to-es2015', 'client-transform', 'copy']);
