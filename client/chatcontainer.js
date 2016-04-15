@@ -5,8 +5,10 @@ class ChatContainer extends React.Component {
     render() {
         return (
             <div className="container">
-                <Menu />
-                <Content />
+                <div className="row">
+                    <Menu />
+                    <Content />
+                 </div>
             </div>
             )
     }

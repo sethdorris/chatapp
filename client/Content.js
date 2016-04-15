@@ -2,7 +2,7 @@
 class Content extends React.Component {
     render() {
         return (
-                <div className="col-md-8">
+                <div className="col-md-8 content">
                     Content
                 </div>
             )
