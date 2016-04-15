@@ -22,10 +22,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Content = function (_React$Component) {
     _inherits(Content, _React$Component);
 
-    function Content() {
+    function Content(props) {
         _classCallCheck(this, Content);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(Content).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(Content).call(this));
     }
 
     _createClass(Content, [{
@@ -52,7 +52,7 @@ var Content = function (_React$Component) {
                         { className: "col-md-2 col-xs-2" },
                         _react2.default.createElement(
                             "button",
-                            { type: "submit", className: "btn btn-default btn-success", onClick: props.send },
+                            { type: "submit", className: "btn btn-default btn-success", onClick: this.props.send },
                             "Send"
                         )
                     )

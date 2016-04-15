@@ -1,5 +1,8 @@
 ﻿import React from 'react';
 class Content extends React.Component {
+    constructor(props) {
+        super();
+    }
     render() {
         return (
                 <div className="col-md-8 col-xs-8 text-center content">
@@ -12,7 +15,7 @@ class Content extends React.Component {
                             <input type="text" className="form-control" id="message" />
                         </div>
                         <div className="col-md-2 col-xs-2">
-                            <button type="submit" className="btn btn-default btn-success" onClick={props.send}>Send</button>
+                            <button type="submit" className="btn btn-default btn-success" onClick={this.props.send}>Send</button>
                         </div>
                     </div>
                 </div>
