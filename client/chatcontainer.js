@@ -13,7 +13,7 @@ class ChatContainer extends React.Component {
     
     render() {
         return (
-            <div className="container">
+            <div className="container dom">
                 <div className="row">
                     <Menu />
                     <Content send={this.send}/>

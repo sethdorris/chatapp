@@ -1,16 +1,23 @@
-﻿.menu {
+﻿.dom {
+    margin-top: 2px;
+}
+
+.menu {
     display: inline-block;
-    border: 1px solid black;
+    border-left: 1px solid #9E9898;
+    border-top: 1px solid #9E9898;
+    border-bottom: 1px solid #9E9898;
+    height: 100%;
 }
 
 .content {
     display: inline-block;
-    border: 1px solid black;
+    border: 1px solid #9E9898;
 }
 
 .chatwindow {
-    border: 1px dotted red;
-    background-color: rgba(128, 128, 128, .4);
+    border-bottom: 1px solid #9E9898;
+    background-color: rgba(193, 191, 191, .4);
     height: 40vh;
     margin-bottom: 3px;
 }

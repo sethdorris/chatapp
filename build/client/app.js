@@ -175,7 +175,7 @@ var ChatContainer = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                { className: 'container' },
+                { className: 'container dom' },
                 _react2.default.createElement(
                     'div',
                     { className: 'row' },
