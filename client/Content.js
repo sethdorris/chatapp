@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import Controls from './Controls';
 class Content extends React.Component {
     constructor(props) {
         super();
@@ -10,12 +11,7 @@ class Content extends React.Component {
                         <div className="col-md-12 col-xs-12 chatwindow">
                         </div>
                     </div>
-                    <div className="row chatcontrols">
-                        <div className="col-md-12 col-xs-12">
-                            <input type="text" className="form-control" id="message" />                    
-                            <button type="submit" className="btn btn-default btn-success" onClick={this.props.send}>Send</button>
-                        </div>
-                    </div>
+                    <Controls send={this.props.send} />
                 </div>
             )
     }
