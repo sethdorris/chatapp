@@ -18,3 +18,9 @@
 .chatcontrols {
     margin-bottom: 3px;
 }
+
+#message {
+    display:inline;
+    width: 50%;
+    margin-right: 1%;
+}
