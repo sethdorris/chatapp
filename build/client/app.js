@@ -44,12 +44,8 @@ var Content = function (_React$Component) {
                     { className: "row chatcontrols" },
                     _react2.default.createElement(
                         "div",
-                        { className: "col-md-10 col-xs-10" },
-                        _react2.default.createElement("input", { type: "text", className: "form-control", id: "message" })
-                    ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "col-md-2 col-xs-2" },
+                        { className: "col-md-12 col-xs-12" },
+                        _react2.default.createElement("input", { type: "text", className: "form-control", id: "message" }),
                         _react2.default.createElement(
                             "button",
                             { type: "submit", className: "btn btn-default btn-success", onClick: this.props.send },
