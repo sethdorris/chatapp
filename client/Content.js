@@ -12,7 +12,7 @@ class Content extends React.Component {
                             <input type="text" className="form-control" id="message" />
                         </div>
                         <div className="col-md-2 col-xs-2">
-                            <button type="submit" className="btn btn-default btn-success">Send</button>
+                            <button type="submit" className="btn btn-default btn-success" onClick={props.send}>Send</button>
                         </div>
                     </div>
                 </div>

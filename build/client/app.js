@@ -52,7 +52,7 @@ var Content = function (_React$Component) {
                         { className: "col-md-2 col-xs-2" },
                         _react2.default.createElement(
                             "button",
-                            { type: "submit", className: "btn btn-default btn-success" },
+                            { type: "submit", className: "btn btn-default btn-success", onClick: props.send },
                             "Send"
                         )
                     )
@@ -163,13 +163,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ChatContainer = function (_React$Component) {
     _inherits(ChatContainer, _React$Component);
 
-    function ChatContainer() {
+    function ChatContainer(props) {
         _classCallCheck(this, ChatContainer);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(ChatContainer).apply(this, arguments));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ChatContainer).call(this));
     }
 
     _createClass(ChatContainer, [{
+        key: 'send',
+        value: function send() {
+            console.log("Fired");
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -179,7 +184,7 @@ var ChatContainer = function (_React$Component) {
                     'div',
                     { className: 'row' },
                     _react2.default.createElement(_Menu2.default, null),
-                    _react2.default.createElement(_Content2.default, null)
+                    _react2.default.createElement(_Content2.default, { send: this.send })
                 )
             );
         }
