@@ -8,7 +8,8 @@ class ChatContainer extends React.Component {
     }
 
     send() {
-        console.log("Fired");
+        var item = new Menu();
+        console.log(item);
     }
     
     render() {

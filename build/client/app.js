@@ -260,7 +260,8 @@ var ChatContainer = function (_React$Component) {
     _createClass(ChatContainer, [{
         key: 'send',
         value: function send() {
-            console.log("Fired");
+            var item = new _Menu2.default();
+            console.log(item);
         }
     }, {
         key: 'render',
