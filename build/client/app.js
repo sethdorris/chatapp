@@ -33,7 +33,7 @@ var Content = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "col-md-8" },
+                { className: "col-md-8 content" },
                 "Content"
             );
         }
@@ -79,7 +79,7 @@ var Menu = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "col-md-4" },
+                { className: "col-md-4 menu" },
                 "Menu"
             );
         }
@@ -153,8 +153,12 @@ var ChatContainer = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'container' },
-                _react2.default.createElement(_Menu2.default, null),
-                _react2.default.createElement(_Content2.default, null)
+                _react2.default.createElement(
+                    'div',
+                    { className: 'row' },
+                    _react2.default.createElement(_Menu2.default, null),
+                    _react2.default.createElement(_Content2.default, null)
+                )
             );
         }
     }]);
