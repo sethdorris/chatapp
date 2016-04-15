@@ -41,7 +41,7 @@ var Content = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                     "div",
-                    { className: "row" },
+                    { className: "row chatcontrols" },
                     _react2.default.createElement(
                         "div",
                         { className: "col-md-10 col-xs-10" },

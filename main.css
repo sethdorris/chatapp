@@ -11,4 +11,10 @@
 .chatwindow {
     border: 1px dotted red;
     background-color: rgba(128, 128, 128, .4);
+    height: 40vh;
+    margin-bottom: 3px;
+}
+
+.chatcontrols {
+    margin-bottom: 3px;
 }

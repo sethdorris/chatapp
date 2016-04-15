@@ -10,7 +10,7 @@ class Content extends React.Component {
                         <div className="col-md-12 col-xs-12 chatwindow">
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row chatcontrols">
                         <div className="col-md-10 col-xs-10">
                             <input type="text" className="form-control" id="message" />
                         </div>
