@@ -33,8 +33,30 @@ var Content = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "col-md-8 content" },
-                "Content"
+                { className: "col-md-8 col-xs-8 text-center content" },
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
+                    _react2.default.createElement("div", { className: "col-md-12 col-xs-12 chatwindow" })
+                ),
+                _react2.default.createElement(
+                    "div",
+                    { className: "row" },
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-md-10 col-xs-10" },
+                        _react2.default.createElement("input", { type: "text", className: "form-control", id: "message" })
+                    ),
+                    _react2.default.createElement(
+                        "div",
+                        { className: "col-md-2 col-xs-2" },
+                        _react2.default.createElement(
+                            "button",
+                            { type: "submit", className: "btn btn-default btn-success" },
+                            "Send"
+                        )
+                    )
+                )
             );
         }
     }]);
@@ -79,7 +101,7 @@ var Menu = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 "div",
-                { className: "col-md-4 menu" },
+                { className: "col-md-4 col-xs-4 text-center menu" },
                 "Menu"
             );
         }
