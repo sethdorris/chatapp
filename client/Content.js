@@ -1,5 +1,7 @@
 ﻿import React from 'react';
 import Controls from './Controls';
+import ChatWindow from './ChatWindow';
+
 class Content extends React.Component {
     constructor(props) {
         super();
@@ -7,10 +9,7 @@ class Content extends React.Component {
     render() {
         return (
                 <div className="col-md-8 col-xs-8 text-center content">
-                    <div className="row">
-                        <div className="col-md-12 col-xs-12 chatwindow">
-                        </div>
-                    </div>
+                    <ChatWindow />
                     <Controls send={this.props.send} />
                 </div>
             )
