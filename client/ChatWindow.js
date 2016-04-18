@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import Message from './Message';
 
 class ChatWindow extends React.Component {
     constructor(props) {
@@ -6,9 +7,14 @@ class ChatWindow extends React.Component {
     }
 
     render() {
+        let messagesArray = this.props.messages;
         return (
                 <div className="row">
                     <div className="col-md-12 col-xs-12 chatwindow">
+                        <ul className="messages">
+                            {messagesArray.map((message) => {
+                                return <Message content={message.content} /> })}
+                        </ul>
                     </div>
                 </div>
             )
