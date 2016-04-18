@@ -1,15 +1,11 @@
 ﻿import React from 'react';
 import Menu from './Menu';
 import Content from './Content';
+import Message from './Message';
 class ChatContainer extends React.Component {
     constructor(props) {
         super();
 
-    }
-
-    send() {
-        var item = new Menu();
-        console.log(item);
     }
     
     render() {
@@ -17,7 +13,7 @@ class ChatContainer extends React.Component {
             <div className="container dom">
                 <div className="row flexcontainer">
                     <Menu />
-                    <Content send={this.send}/>
+                    <Content />
                  </div>
             </div>
             )
