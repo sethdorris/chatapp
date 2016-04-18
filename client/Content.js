@@ -8,14 +8,17 @@ class Content extends React.Component {
 
         this.state = {
             messages: [{
-                title: "test",
+                id: 0,
                 content: "this is my content"
+            }, {
+                id: 1,
+                content: "I am just testing my second content item."
             }]
         }
     }
 
     send () {
-        console.log("Firing");
+
     }
     render() {
         return (
