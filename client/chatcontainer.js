@@ -15,7 +15,7 @@ class ChatContainer extends React.Component {
     render() {
         return (
             <div className="container dom">
-                <div className="row">
+                <div className="row flexcontainer">
                     <Menu />
                     <Content send={this.send}/>
                  </div>

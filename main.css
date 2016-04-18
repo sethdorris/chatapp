@@ -2,17 +2,22 @@
     margin-top: 2px;
 }
 
+.flexcontainer {
+    display: flex;
+}
+
 .menu {
     display: inline-block;
     border-left: 1px solid #9E9898;
     border-top: 1px solid #9E9898;
     border-bottom: 1px solid #9E9898;
-    height: 100%;
+    flex: .5;
 }
 
 .content {
     display: inline-block;
     border: 1px solid #9E9898;
+    flex: 1;
 }
 
 .chatwindow {

@@ -271,7 +271,7 @@ var ChatContainer = function (_React$Component) {
                 { className: 'container dom' },
                 _react2.default.createElement(
                     'div',
-                    { className: 'row' },
+                    { className: 'row flexcontainer' },
                     _react2.default.createElement(_Menu2.default, null),
                     _react2.default.createElement(_Content2.default, { send: this.send })
                 )
