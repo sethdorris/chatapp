@@ -12,6 +12,7 @@ import ChatWindow from './ChatWindow';
         }
         */
 
+
 class Content extends React.Component {
     constructor(props) {
         super();
