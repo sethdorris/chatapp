@@ -2,6 +2,16 @@
 import Controls from './Controls';
 import ChatWindow from './ChatWindow';
 
+/*
+    const ws = new WebSocket("ws://localhost:3000");
+        ws.onopen = () => {
+            ws.send("hi");
+            ws.onmessage = (message) => {
+                console.log("message: ", message.data);
+            }
+        }
+        */
+
 class Content extends React.Component {
     constructor(props) {
         super();
@@ -20,6 +30,11 @@ class Content extends React.Component {
     send () {
 
     }
+
+    componentDidMount() {
+    
+    }
+
     render() {
         return (
                 <div className="col-md-8 col-xs-8 text-center content">

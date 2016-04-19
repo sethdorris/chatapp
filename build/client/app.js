@@ -112,6 +112,17 @@ var Content = function (_React$Component) {
         key: 'send',
         value: function send() {}
     }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var ws = new WebSocket("ws://localhost:3000");
+            ws.onopen = function () {
+                ws.send("hi");
+                ws.onmessage = function (message) {
+                    console.log("message: ", message.data);
+                };
+            };
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
@@ -291,15 +302,6 @@ var _chatcontainer = require('./chatcontainer');
 var _chatcontainer2 = _interopRequireDefault(_chatcontainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ws = new WebSocket('ws://localhost:3000');
-ws.onopen = function () {
-    ws.send("Thanks!");
-};
-
-ws.onmessage = function (event) {
-    console.log(event);
-};
 
 _reactDom2.default.render(_react2.default.createElement(_chatcontainer2.default, null), document.getElementById('app'));
 
