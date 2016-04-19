@@ -292,6 +292,11 @@ var _chatcontainer2 = _interopRequireDefault(_chatcontainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var ws = new WebSocket('ws://localhost:3000');
+ws.onopen = function () {
+    ws.send("Thanks!");
+};
+
 _reactDom2.default.render(_react2.default.createElement(_chatcontainer2.default, null), document.getElementById('app'));
 
 },{"./chatcontainer":7,"react":172,"react-dom":36}],7:[function(require,module,exports){
