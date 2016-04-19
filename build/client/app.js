@@ -297,6 +297,10 @@ ws.onopen = function () {
     ws.send("Thanks!");
 };
 
+ws.onmessage = function (event) {
+    console.log(event);
+};
+
 _reactDom2.default.render(_react2.default.createElement(_chatcontainer2.default, null), document.getElementById('app'));
 
 },{"./chatcontainer":7,"react":172,"react-dom":36}],7:[function(require,module,exports){
