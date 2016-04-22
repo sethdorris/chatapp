@@ -2,6 +2,9 @@
 import Menu from './Menu';
 import Content from './Content';
 import Message from './Message';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+
 class ChatContainer extends React.Component {
     constructor(props) {
         super();
