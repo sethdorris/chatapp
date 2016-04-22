@@ -7,6 +7,10 @@ class ChatContainer extends React.Component {
         super();
 
     }
+
+    componentDidMount() {
+        //Grab chat rooms from db and set them in state, pass to Menu
+    }
     
     render() {
         return (
