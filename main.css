@@ -51,3 +51,9 @@
 .messages > li:nth-child(even) {
     background-color: #eee;
 }
+
+.landing {
+    width: 100vw;
+    height: 100vh;
+    background-color: aquamarine;
+}
