@@ -197,14 +197,19 @@ var Landing = function Landing(props) {
             { className: 'row' },
             _react2.default.createElement(
                 'div',
-                { className: 'col-sm-12 col-md-12' },
+                { className: 'col-sm-4 col-md-4 col-offset-4' },
+                _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'username' },
+                    'Username: '
+                ),
                 _react2.default.createElement('input', { className: 'form-control', type: 'text', placeholder: 'Username' }),
                 _react2.default.createElement(
                     _reactRouter.Link,
                     { to: '/main' },
                     _react2.default.createElement(
                         'button',
-                        { className: 'btn btn-success', type: 'submit' },
+                        { className: 'btn btn-success text-center', type: 'submit' },
                         'Connect'
                     )
                 )
