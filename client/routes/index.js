@@ -10,9 +10,7 @@ import {setUsername} from '../actions/index';
 
 let store = createStore(reducer);
 
-console.log(store.getState());
-//console.log("reducer", reducer({}, actions))
-console.log("dispatch", store.dispatch(setUsername("Seth")));
+console.log("store",store.getState());
 
 const routes = (
     <Provider store={store}>

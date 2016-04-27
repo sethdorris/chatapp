@@ -2,6 +2,7 @@
 import Menu from './Menu';
 import Content from './Content';
 import Message from './Message';
+import {connect} from 'react-redux';
 
 class ChatContainer extends React.Component {
     constructor(props) {
@@ -24,4 +25,4 @@ class ChatContainer extends React.Component {
             )
     }
 };
-export default ChatContainer;
+export default connect(state=>state)(ChatContainer);

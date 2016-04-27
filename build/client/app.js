@@ -188,6 +188,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
+var _reactRedux = require('react-redux');
+
+var _index = require('./actions/index');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -202,12 +206,21 @@ var Landing = function (_React$Component) {
     function Landing(props) {
         _classCallCheck(this, Landing);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(Landing).call(this));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Landing).call(this));
+
+        _this.connectButton = _this.connectButton.bind(_this);
+        return _this;
     }
 
     _createClass(Landing, [{
         key: 'connectButton',
-        value: function connectButton() {}
+        value: function connectButton() {
+            var dispatch = this.props.dispatch;
+
+            console.log("Get State", store.getState());
+            var login = document.getElementById("usernameinput").value;
+            console.log("Store", dispatch((0, _index.setUsername)(login)));
+        }
     }, {
         key: 'render',
         value: function render() {
@@ -225,15 +238,11 @@ var Landing = function (_React$Component) {
                             { htmlFor: 'username' },
                             'Username: '
                         ),
-                        _react2.default.createElement('input', { className: 'form-control', type: 'text', placeholder: 'Username' }),
+                        _react2.default.createElement('input', { className: 'form-control', type: 'text', id: 'usernameinput', placeholder: 'Username' }),
                         _react2.default.createElement(
-                            _reactRouter.Link,
-                            { to: '/main' },
-                            _react2.default.createElement(
-                                'button',
-                                { className: 'btn btn-success text-center', type: 'submit', onclick: this.connectButton },
-                                'Connect'
-                            )
+                            'button',
+                            { className: 'btn btn-success text-center', type: 'submit', onClick: this.connectButton },
+                            'Connect'
                         )
                     )
                 )
@@ -244,9 +253,9 @@ var Landing = function (_React$Component) {
     return Landing;
 }(_react2.default.Component);
 
-exports.default = Landing;
+exports.default = (0, _reactRedux.connect)()(Landing);
 
-},{"react":245,"react-router":103}],5:[function(require,module,exports){
+},{"./actions/index":7,"react":245,"react-redux":65,"react-router":103}],5:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -368,6 +377,8 @@ var _Message = require('./Message');
 
 var _Message2 = _interopRequireDefault(_Message);
 
+var _reactRedux = require('react-redux');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -410,9 +421,11 @@ var ChatContainer = function (_React$Component) {
 }(_react2.default.Component);
 
 ;
-exports.default = ChatContainer;
+exports.default = (0, _reactRedux.connect)(function (state) {
+    return state;
+})(ChatContainer);
 
-},{"./Content":2,"./Menu":5,"./Message":6,"react":245}],10:[function(require,module,exports){
+},{"./Content":2,"./Menu":5,"./Message":6,"react":245,"react-redux":65}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -421,7 +434,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var reducer = exports.reducer = function reducer(state, action) {
+var initialState = { username: '' };
+var reducer = exports.reducer = function reducer() {
+    var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
+    var action = arguments[1];
+
     if (typeof state == 'undefined') {
         return {};
     }
@@ -473,9 +490,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var store = (0, _redux.createStore)(_index.reducer);
 
-console.log(store.getState());
-//console.log("reducer", reducer({}, actions))
-console.log("dispatch", store.dispatch((0, _index2.setUsername)("Seth")));
+console.log("store", store.getState());
 
 var routes = _react2.default.createElement(
     _reactRedux.Provider,

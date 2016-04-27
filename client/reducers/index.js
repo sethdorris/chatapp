@@ -1,4 +1,5 @@
-﻿export const reducer = (state, action) => {
+﻿const initialState = {username: ''};
+export const reducer = (state = initialState, action) => {
     if (typeof state == 'undefined') {
         return {}
     } 
