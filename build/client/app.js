@@ -217,7 +217,7 @@ var Landing = function (_React$Component) {
         value: function connectButton() {
             var dispatch = this.props.dispatch;
 
-            console.log("Get State", store.getState());
+            console.log("PROPS", this.props);
             var login = document.getElementById("usernameinput").value;
             console.log("Store", dispatch((0, _index.setUsername)(login)));
         }

@@ -12,7 +12,7 @@ class Landing extends React.Component {
 
     connectButton() {
         const {dispatch} = this.props;
-        console.log("Get State", store.getState());
+        console.log("PROPS", this.props)
         let login = document.getElementById("usernameinput").value
         console.log("Store", dispatch(setUsername(login)));
         
