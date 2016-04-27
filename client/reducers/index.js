@@ -1,4 +1,4 @@
-﻿const reducer = (state, action) => {
+﻿export const reducer = (state, action) => {
     if (typeof state == 'undefined') {
         return {}
     } 
@@ -7,9 +7,10 @@
         case 'SET_USERNAME':
             return {
                 ...state,
-                username: action.value
+                username: action.username
             }
+        default:
+            return state;
     }
 }
 
-export default reducer;

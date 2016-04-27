@@ -1,8 +1,7 @@
-﻿const actions = (username) => {
+﻿export const setUsername = (username) => {
     return {
         type: 'SET_USERNAME',
-        value: username
+        username
     }
 }
 
-export default actions;

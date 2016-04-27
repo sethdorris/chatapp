@@ -317,14 +317,12 @@ exports.default = Message;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var actions = function actions(username) {
+var setUsername = exports.setUsername = function setUsername(username) {
     return {
         type: 'SET_USERNAME',
-        value: username
+        username: username
     };
 };
-
-exports.default = actions;
 
 },{}],8:[function(require,module,exports){
 'use strict';
@@ -423,7 +421,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var reducer = function reducer(state, action) {
+var reducer = exports.reducer = function reducer(state, action) {
     if (typeof state == 'undefined') {
         return {};
     }
@@ -431,12 +429,12 @@ var reducer = function reducer(state, action) {
     switch (action.type) {
         case 'SET_USERNAME':
             return _extends({}, state, {
-                username: action.value
+                username: action.username
             });
+        default:
+            return state;
     }
 };
-
-exports.default = reducer;
 
 },{}],11:[function(require,module,exports){
 'use strict';
@@ -469,19 +467,15 @@ var _redux = require('redux');
 
 var _index = require('../reducers/index');
 
-var _index2 = _interopRequireDefault(_index);
-
-var _index3 = require('../actions/index');
-
-var _index4 = _interopRequireDefault(_index3);
+var _index2 = require('../actions/index');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux.createStore)(_index2.default);
+var store = (0, _redux.createStore)(_index.reducer);
 
 console.log(store.getState());
 //console.log("reducer", reducer({}, actions))
-console.log("dispatch", store.dispatch((0, _index4.default)("Seth")));
+console.log("dispatch", store.dispatch((0, _index2.setUsername)("Seth")));
 
 var routes = _react2.default.createElement(
     _reactRedux.Provider,
