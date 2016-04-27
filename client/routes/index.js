@@ -6,10 +6,13 @@ import Main from '../chatcontainer';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 import reducer from '../reducers/index';
+import actions from '../actions/index';
 
 let store = createStore(reducer);
 
 console.log(store.getState());
+//console.log("reducer", reducer({}, actions))
+console.log("dispatch", store.dispatch(actions("Seth")));
 
 const routes = (
     <Provider store={store}>

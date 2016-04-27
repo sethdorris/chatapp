@@ -317,12 +317,14 @@ exports.default = Message;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-var setUsername = exports.setUsername = function setUsername(username) {
+var actions = function actions(username) {
     return {
         type: 'SET_USERNAME',
         value: username
     };
 };
+
+exports.default = actions;
 
 },{}],8:[function(require,module,exports){
 'use strict';
@@ -419,11 +421,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _index = require('../actions/index');
-
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var reducer = function reducer(state, action) {
     if (typeof state == 'undefined') {
@@ -432,17 +430,15 @@ var reducer = function reducer(state, action) {
 
     switch (action.type) {
         case 'SET_USERNAME':
-            return {
+            return _extends({}, state, {
                 username: action.value
-            };
-        default:
-
+            });
     }
 };
 
 exports.default = reducer;
 
-},{"../actions/index":7}],11:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -475,11 +471,17 @@ var _index = require('../reducers/index');
 
 var _index2 = _interopRequireDefault(_index);
 
+var _index3 = require('../actions/index');
+
+var _index4 = _interopRequireDefault(_index3);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var store = (0, _redux.createStore)(_index2.default);
 
 console.log(store.getState());
+//console.log("reducer", reducer({}, actions))
+console.log("dispatch", store.dispatch((0, _index4.default)("Seth")));
 
 var routes = _react2.default.createElement(
     _reactRedux.Provider,
@@ -498,7 +500,7 @@ var routes = _react2.default.createElement(
 
 exports.default = routes;
 
-},{"../Landing":4,"../app":8,"../chatcontainer":9,"../reducers/index":10,"react":245,"react-redux":65,"react-router":103,"redux":251}],12:[function(require,module,exports){
+},{"../Landing":4,"../actions/index":7,"../app":8,"../chatcontainer":9,"../reducers/index":10,"react":245,"react-redux":65,"react-router":103,"redux":251}],12:[function(require,module,exports){
 var pSlice = Array.prototype.slice;
 var objectKeys = require('./lib/keys.js');
 var isArguments = require('./lib/is_arguments.js');

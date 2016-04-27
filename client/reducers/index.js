@@ -1,6 +1,4 @@
-﻿import actions from '../actions/index';
-
-const reducer = (state, action) => {
+﻿const reducer = (state, action) => {
     if (typeof state == 'undefined') {
         return {}
     } 
@@ -8,10 +6,9 @@ const reducer = (state, action) => {
     switch (action.type) {
         case 'SET_USERNAME':
             return {
+                ...state,
                 username: action.value
             }
-        default:
-
     }
 }
 
