@@ -14,7 +14,7 @@ gulp.task('server-to-es2015', () => {
 
 gulp.task('client-transform', () => {
     var bundlesur = browserify('./client/app.js')
-                    .transform(babelify, { presets: ['es2015', 'react'] })
+                    .transform(babelify, { presets: ['es2015', 'react', 'stage-2'] })
                     .bundle()
                     .pipe(source('app.js'))
                     .pipe(gulp.dest(__dirname + "/build/client"));
