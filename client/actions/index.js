@@ -5,3 +5,10 @@
     }
 }
 
+export const socketConnectInit = (hostname) => {
+    return {
+        type: 'SOCKET_CONNECT_INIT',
+        hostname,
+    }
+}
+
