@@ -25,4 +25,4 @@ class ChatContainer extends React.Component {
             )
     }
 };
-export default connect(state=>state)(ChatContainer);
+export default connect()(ChatContainer);
