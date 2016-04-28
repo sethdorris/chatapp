@@ -17,6 +17,12 @@ export const reducer = (state = initialState, action) => {
                 connected: false,
                 hostname: action.hostname
             }
+        case 'SOCKET_ON_OPEN':
+            return {
+                ...state,
+                connecting: false,
+                connected: true
+            }
         default:
             return state;
     }

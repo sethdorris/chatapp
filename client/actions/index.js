@@ -12,3 +12,9 @@ export const socketConnectInit = (hostname) => {
     }
 }
 
+export const socketOnOpen = () => {
+    return {
+        type: 'SOCKET_ON_OPEN'
+    }
+}
+
