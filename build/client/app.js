@@ -200,13 +200,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var PropTypes = _react2.default.PropTypes;
+
 var Landing = function (_React$Component) {
     _inherits(Landing, _React$Component);
 
-    function Landing(props) {
+    function Landing(props, context) {
         _classCallCheck(this, Landing);
 
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Landing).call(this));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Landing).call(this, props, context));
 
         _this.connectButton = _this.connectButton.bind(_this);
         return _this;
@@ -215,11 +217,23 @@ var Landing = function (_React$Component) {
     _createClass(Landing, [{
         key: 'connectButton',
         value: function connectButton() {
+            var _this2 = this;
+
             var dispatch = this.props.dispatch;
 
-            console.log("PROPS", this.props);
+            var connectingString = "Connecting";
             var login = document.getElementById("usernameinput").value;
-            console.log("Store", dispatch((0, _index.setUsername)(login)));
+            var webSocket = new WebSocket("ws://localhost:3001");
+            console.log("WebSocket", webSocket);
+            var btn = document.getElementById("connectBtn");
+            dispatch((0, _index.setUsername)(login));
+            dispatch((0, _index.socketConnectInit)(webSocket.url));
+            webSocket.onopen = function () {
+                console.log("websocket opened", webSocket);
+                _this2.context.router.push({
+                    pathname: '/Main'
+                });
+            };
         }
     }, {
         key: 'render',
@@ -241,7 +255,7 @@ var Landing = function (_React$Component) {
                         _react2.default.createElement('input', { className: 'form-control', type: 'text', id: 'usernameinput', placeholder: 'Username' }),
                         _react2.default.createElement(
                             'button',
-                            { className: 'btn btn-success text-center', type: 'submit', onClick: this.connectButton },
+                            { className: 'btn btn-success text-center', id: 'connectBtn', type: 'submit', onClick: this.connectButton },
                             'Connect'
                         )
                     )
@@ -253,7 +267,13 @@ var Landing = function (_React$Component) {
     return Landing;
 }(_react2.default.Component);
 
-exports.default = (0, _reactRedux.connect)()(Landing);
+Landing.contextTypes = {
+    router: _react2.default.PropTypes.object.isRequired
+};
+
+exports.default = (0, _reactRedux.connect)(function (store) {
+    return store;
+})(Landing);
 
 },{"./actions/index":7,"react":245,"react-redux":65,"react-router":103}],5:[function(require,module,exports){
 "use strict";
@@ -330,6 +350,13 @@ var setUsername = exports.setUsername = function setUsername(username) {
     return {
         type: 'SET_USERNAME',
         username: username
+    };
+};
+
+var socketConnectInit = exports.socketConnectInit = function socketConnectInit(hostname) {
+    return {
+        type: 'SOCKET_CONNECT_INIT',
+        hostname: hostname
     };
 };
 
@@ -421,9 +448,7 @@ var ChatContainer = function (_React$Component) {
 }(_react2.default.Component);
 
 ;
-exports.default = (0, _reactRedux.connect)(function (state) {
-    return state;
-})(ChatContainer);
+exports.default = (0, _reactRedux.connect)()(ChatContainer);
 
 },{"./Content":2,"./Menu":5,"./Message":6,"react":245,"react-redux":65}],10:[function(require,module,exports){
 'use strict';
@@ -447,6 +472,12 @@ var reducer = exports.reducer = function reducer() {
         case 'SET_USERNAME':
             return _extends({}, state, {
                 username: action.username
+            });
+        case 'SOCKET_CONNECT_INIT':
+            return _extends({}, state, {
+                connecting: true,
+                connected: false,
+                hostname: action.hostname
             });
         default:
             return state;
@@ -486,9 +517,14 @@ var _index = require('../reducers/index');
 
 var _index2 = require('../actions/index');
 
+var _reduxLogger = require('redux-logger');
+
+var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var store = (0, _redux.createStore)(_index.reducer);
+var logger = (0, _reduxLogger2.default)();
+var store = (0, _redux.createStore)(_index.reducer, (0, _redux.applyMiddleware)(logger));
 
 console.log("store", store.getState());
 
@@ -509,7 +545,7 @@ var routes = _react2.default.createElement(
 
 exports.default = routes;
 
-},{"../Landing":4,"../actions/index":7,"../app":8,"../chatcontainer":9,"../reducers/index":10,"react":245,"react-redux":65,"react-router":103,"redux":251}],12:[function(require,module,exports){
+},{"../Landing":4,"../actions/index":7,"../app":8,"../chatcontainer":9,"../reducers/index":10,"react":245,"react-redux":65,"react-router":103,"redux":252,"redux-logger":246}],12:[function(require,module,exports){
 var pSlice = Array.prototype.slice;
 var objectKeys = require('./lib/keys.js');
 var isArguments = require('./lib/is_arguments.js');
@@ -2039,7 +2075,7 @@ function readState(key) {
   return null;
 }
 }).call(this,require('_process'))
-},{"_process":60,"warning":260}],44:[function(require,module,exports){
+},{"_process":60,"warning":261}],44:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -2171,7 +2207,7 @@ function parsePath(path) {
   };
 }
 }).call(this,require('_process'))
-},{"_process":60,"warning":260}],47:[function(require,module,exports){
+},{"_process":60,"warning":261}],47:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -2642,7 +2678,7 @@ function createHashHistory() {
 exports['default'] = createHashHistory;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./Actions":41,"./DOMStateStorage":43,"./DOMUtils":44,"./ExecutionEnvironment":45,"./PathUtils":46,"./createDOMHistory":48,"_process":60,"invariant":58,"warning":260}],50:[function(require,module,exports){
+},{"./Actions":41,"./DOMStateStorage":43,"./DOMUtils":44,"./ExecutionEnvironment":45,"./PathUtils":46,"./createDOMHistory":48,"_process":60,"invariant":58,"warning":261}],50:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -2933,7 +2969,7 @@ function createHistory() {
 exports['default'] = createHistory;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./Actions":41,"./AsyncUtils":42,"./PathUtils":46,"./createLocation":51,"./deprecate":53,"./runTransitionHook":54,"_process":60,"deep-equal":12,"warning":260}],51:[function(require,module,exports){
+},{"./Actions":41,"./AsyncUtils":42,"./PathUtils":46,"./createLocation":51,"./deprecate":53,"./runTransitionHook":54,"_process":60,"deep-equal":12,"warning":261}],51:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -2987,7 +3023,7 @@ function createLocation() {
 exports['default'] = createLocation;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./Actions":41,"./PathUtils":46,"_process":60,"warning":260}],52:[function(require,module,exports){
+},{"./Actions":41,"./PathUtils":46,"_process":60,"warning":261}],52:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3144,7 +3180,7 @@ function createMemoryHistory() {
 exports['default'] = createMemoryHistory;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./Actions":41,"./PathUtils":46,"./createHistory":50,"_process":60,"invariant":58,"warning":260}],53:[function(require,module,exports){
+},{"./Actions":41,"./PathUtils":46,"./createHistory":50,"_process":60,"invariant":58,"warning":261}],53:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3166,7 +3202,7 @@ function deprecate(fn, message) {
 exports['default'] = deprecate;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"_process":60,"warning":260}],54:[function(require,module,exports){
+},{"_process":60,"warning":261}],54:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3193,7 +3229,7 @@ function runTransitionHook(hook, location, callback) {
 exports['default'] = runTransitionHook;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"_process":60,"warning":260}],55:[function(require,module,exports){
+},{"_process":60,"warning":261}],55:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3339,7 +3375,7 @@ function useBasename(createHistory) {
 exports['default'] = useBasename;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./ExecutionEnvironment":45,"./PathUtils":46,"./deprecate":53,"./runTransitionHook":54,"_process":60,"warning":260}],56:[function(require,module,exports){
+},{"./ExecutionEnvironment":45,"./PathUtils":46,"./deprecate":53,"./runTransitionHook":54,"_process":60,"warning":261}],56:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -3518,7 +3554,7 @@ function useQueries(createHistory) {
 exports['default'] = useQueries;
 module.exports = exports['default'];
 }).call(this,require('_process'))
-},{"./PathUtils":46,"./deprecate":53,"./runTransitionHook":54,"_process":60,"query-string":61,"warning":260}],57:[function(require,module,exports){
+},{"./PathUtils":46,"./deprecate":53,"./runTransitionHook":54,"_process":60,"query-string":61,"warning":261}],57:[function(require,module,exports){
 /**
  * Copyright 2015, Yahoo! Inc.
  * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
@@ -3817,7 +3853,7 @@ exports.stringify = function (obj) {
 	}).join('&') : '';
 };
 
-},{"strict-uri-encode":257}],62:[function(require,module,exports){
+},{"strict-uri-encode":258}],62:[function(require,module,exports){
 'use strict';
 
 module.exports = require('react/lib/ReactDOM');
@@ -4394,7 +4430,7 @@ function wrapActionCreators(actionCreators) {
     return (0, _redux.bindActionCreators)(actionCreators, dispatch);
   };
 }
-},{"redux":251}],70:[function(require,module,exports){
+},{"redux":252}],70:[function(require,module,exports){
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeGetPrototype = Object.getPrototypeOf;
 
@@ -7699,7 +7735,7 @@ function _resetWarned() {
   warned = {};
 }
 }).call(this,require('_process'))
-},{"_process":60,"warning":260}],108:[function(require,module,exports){
+},{"_process":60,"warning":261}],108:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25769,6 +25805,235 @@ module.exports = validateDOMNesting;
 module.exports = require('./lib/React');
 
 },{"./lib/React":133}],246:[function(require,module,exports){
+"use strict";
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
+var repeat = function repeat(str, times) {
+  return new Array(times + 1).join(str);
+};
+var pad = function pad(num, maxLength) {
+  return repeat("0", maxLength - num.toString().length) + num;
+};
+var formatTime = function formatTime(time) {
+  return "@ " + pad(time.getHours(), 2) + ":" + pad(time.getMinutes(), 2) + ":" + pad(time.getSeconds(), 2) + "." + pad(time.getMilliseconds(), 3);
+};
+
+// Use the new performance api to get better precision if available
+var timer = typeof performance !== "undefined" && typeof performance.now === "function" ? performance : Date;
+
+/**
+ * parse the level option of createLogger
+ *
+ * @property {string | function | object} level - console[level]
+ * @property {object} action
+ * @property {array} payload
+ * @property {string} type
+ */
+
+function getLogLevel(level, action, payload, type) {
+  switch (typeof level === "undefined" ? "undefined" : _typeof(level)) {
+    case "object":
+      return typeof level[type] === "function" ? level[type].apply(level, _toConsumableArray(payload)) : level[type];
+    case "function":
+      return level(action);
+    default:
+      return level;
+  }
+}
+
+/**
+ * Creates logger with followed options
+ *
+ * @namespace
+ * @property {object} options - options for logger
+ * @property {string | function | object} options.level - console[level]
+ * @property {boolean} options.duration - print duration of each action?
+ * @property {boolean} options.timestamp - print timestamp with each action?
+ * @property {object} options.colors - custom colors
+ * @property {object} options.logger - implementation of the `console` API
+ * @property {boolean} options.logErrors - should errors in action execution be caught, logged, and re-thrown?
+ * @property {boolean} options.collapsed - is group collapsed?
+ * @property {boolean} options.predicate - condition which resolves logger behavior
+ * @property {function} options.stateTransformer - transform state before print
+ * @property {function} options.actionTransformer - transform action before print
+ * @property {function} options.errorTransformer - transform error before print
+ */
+
+function createLogger() {
+  var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+  var _options$level = options.level;
+  var level = _options$level === undefined ? "log" : _options$level;
+  var _options$logger = options.logger;
+  var logger = _options$logger === undefined ? console : _options$logger;
+  var _options$logErrors = options.logErrors;
+  var logErrors = _options$logErrors === undefined ? true : _options$logErrors;
+  var collapsed = options.collapsed;
+  var predicate = options.predicate;
+  var _options$duration = options.duration;
+  var duration = _options$duration === undefined ? false : _options$duration;
+  var _options$timestamp = options.timestamp;
+  var timestamp = _options$timestamp === undefined ? true : _options$timestamp;
+  var transformer = options.transformer;
+  var _options$stateTransfo = options.stateTransformer;
+  var // deprecated
+  stateTransformer = _options$stateTransfo === undefined ? function (state) {
+    return state;
+  } : _options$stateTransfo;
+  var _options$actionTransf = options.actionTransformer;
+  var actionTransformer = _options$actionTransf === undefined ? function (actn) {
+    return actn;
+  } : _options$actionTransf;
+  var _options$errorTransfo = options.errorTransformer;
+  var errorTransformer = _options$errorTransfo === undefined ? function (error) {
+    return error;
+  } : _options$errorTransfo;
+  var _options$colors = options.colors;
+  var colors = _options$colors === undefined ? {
+    title: function title() {
+      return "#000000";
+    },
+    prevState: function prevState() {
+      return "#9E9E9E";
+    },
+    action: function action() {
+      return "#03A9F4";
+    },
+    nextState: function nextState() {
+      return "#4CAF50";
+    },
+    error: function error() {
+      return "#F20404";
+    }
+  } : _options$colors;
+
+  // exit if console undefined
+
+  if (typeof logger === "undefined") {
+    return function () {
+      return function (next) {
+        return function (action) {
+          return next(action);
+        };
+      };
+    };
+  }
+
+  if (transformer) {
+    console.error("Option 'transformer' is deprecated, use stateTransformer instead");
+  }
+
+  var logBuffer = [];
+  function printBuffer() {
+    logBuffer.forEach(function (logEntry, key) {
+      var started = logEntry.started;
+      var startedTime = logEntry.startedTime;
+      var action = logEntry.action;
+      var prevState = logEntry.prevState;
+      var error = logEntry.error;
+      var took = logEntry.took;
+      var nextState = logEntry.nextState;
+
+      var nextEntry = logBuffer[key + 1];
+      if (nextEntry) {
+        nextState = nextEntry.prevState;
+        took = nextEntry.started - started;
+      }
+      // message
+      var formattedAction = actionTransformer(action);
+      var isCollapsed = typeof collapsed === "function" ? collapsed(function () {
+        return nextState;
+      }, action) : collapsed;
+
+      var formattedTime = formatTime(startedTime);
+      var titleCSS = colors.title ? "color: " + colors.title(formattedAction) + ";" : null;
+      var title = "action " + (timestamp ? formattedTime : "") + " " + formattedAction.type + " " + (duration ? "(in " + took.toFixed(2) + " ms)" : "");
+
+      // render
+      try {
+        if (isCollapsed) {
+          if (colors.title) logger.groupCollapsed("%c " + title, titleCSS);else logger.groupCollapsed(title);
+        } else {
+          if (colors.title) logger.group("%c " + title, titleCSS);else logger.group(title);
+        }
+      } catch (e) {
+        logger.log(title);
+      }
+
+      var prevStateLevel = getLogLevel(level, formattedAction, [prevState], "prevState");
+      var actionLevel = getLogLevel(level, formattedAction, [formattedAction], "action");
+      var errorLevel = getLogLevel(level, formattedAction, [error, prevState], "error");
+      var nextStateLevel = getLogLevel(level, formattedAction, [nextState], "nextState");
+
+      if (prevStateLevel) {
+        if (colors.prevState) logger[prevStateLevel]("%c prev state", "color: " + colors.prevState(prevState) + "; font-weight: bold", prevState);else logger[prevStateLevel]("prev state", prevState);
+      }
+
+      if (actionLevel) {
+        if (colors.action) logger[actionLevel]("%c action", "color: " + colors.action(formattedAction) + "; font-weight: bold", formattedAction);else logger[actionLevel]("action", formattedAction);
+      }
+
+      if (error && errorLevel) {
+        if (colors.error) logger[errorLevel]("%c error", "color: " + colors.error(error, prevState) + "; font-weight: bold", error);else logger[errorLevel]("error", error);
+      }
+
+      if (nextStateLevel) {
+        if (colors.nextState) logger[nextStateLevel]("%c next state", "color: " + colors.nextState(nextState) + "; font-weight: bold", nextState);else logger[nextStateLevel]("next state", nextState);
+      }
+
+      try {
+        logger.groupEnd();
+      } catch (e) {
+        logger.log("—— log end ——");
+      }
+    });
+    logBuffer.length = 0;
+  }
+
+  return function (_ref) {
+    var getState = _ref.getState;
+    return function (next) {
+      return function (action) {
+        // exit early if predicate function returns false
+        if (typeof predicate === "function" && !predicate(getState, action)) {
+          return next(action);
+        }
+
+        var logEntry = {};
+        logBuffer.push(logEntry);
+
+        logEntry.started = timer.now();
+        logEntry.startedTime = new Date();
+        logEntry.prevState = stateTransformer(getState());
+        logEntry.action = action;
+
+        var returnedValue = undefined;
+        if (logErrors) {
+          try {
+            returnedValue = next(action);
+          } catch (e) {
+            logEntry.error = errorTransformer(e);
+          }
+        } else {
+          returnedValue = next(action);
+        }
+
+        logEntry.took = timer.now() - logEntry.started;
+        logEntry.nextState = stateTransformer(getState());
+
+        printBuffer();
+
+        if (logEntry.error) throw logEntry.error;
+        return returnedValue;
+      };
+    };
+  };
+}
+
+module.exports = createLogger;
+},{}],247:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25827,7 +26092,7 @@ function applyMiddleware() {
     };
   };
 }
-},{"./compose":249}],247:[function(require,module,exports){
+},{"./compose":250}],248:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -25879,7 +26144,7 @@ function bindActionCreators(actionCreators, dispatch) {
   }
   return boundActionCreators;
 }
-},{}],248:[function(require,module,exports){
+},{}],249:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -26009,7 +26274,7 @@ function combineReducers(reducers) {
   };
 }
 }).call(this,require('_process'))
-},{"./createStore":250,"./utils/warning":252,"_process":60,"lodash/isPlainObject":256}],249:[function(require,module,exports){
+},{"./createStore":251,"./utils/warning":253,"_process":60,"lodash/isPlainObject":257}],250:[function(require,module,exports){
 "use strict";
 
 exports.__esModule = true;
@@ -26050,7 +26315,7 @@ function compose() {
     if (typeof _ret === "object") return _ret.v;
   }
 }
-},{}],250:[function(require,module,exports){
+},{}],251:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -26313,7 +26578,7 @@ function createStore(reducer, initialState, enhancer) {
     replaceReducer: replaceReducer
   }, _ref2[_symbolObservable2["default"]] = observable, _ref2;
 }
-},{"lodash/isPlainObject":256,"symbol-observable":258}],251:[function(require,module,exports){
+},{"lodash/isPlainObject":257,"symbol-observable":259}],252:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -26362,17 +26627,17 @@ exports.bindActionCreators = _bindActionCreators2["default"];
 exports.applyMiddleware = _applyMiddleware2["default"];
 exports.compose = _compose2["default"];
 }).call(this,require('_process'))
-},{"./applyMiddleware":246,"./bindActionCreators":247,"./combineReducers":248,"./compose":249,"./createStore":250,"./utils/warning":252,"_process":60}],252:[function(require,module,exports){
+},{"./applyMiddleware":247,"./bindActionCreators":248,"./combineReducers":249,"./compose":250,"./createStore":251,"./utils/warning":253,"_process":60}],253:[function(require,module,exports){
 arguments[4][68][0].apply(exports,arguments)
-},{"dup":68}],253:[function(require,module,exports){
+},{"dup":68}],254:[function(require,module,exports){
 arguments[4][70][0].apply(exports,arguments)
-},{"dup":70}],254:[function(require,module,exports){
+},{"dup":70}],255:[function(require,module,exports){
 arguments[4][71][0].apply(exports,arguments)
-},{"dup":71}],255:[function(require,module,exports){
+},{"dup":71}],256:[function(require,module,exports){
 arguments[4][72][0].apply(exports,arguments)
-},{"dup":72}],256:[function(require,module,exports){
+},{"dup":72}],257:[function(require,module,exports){
 arguments[4][73][0].apply(exports,arguments)
-},{"./_getPrototype":253,"./_isHostObject":254,"./isObjectLike":255,"dup":73}],257:[function(require,module,exports){
+},{"./_getPrototype":254,"./_isHostObject":255,"./isObjectLike":256,"dup":73}],258:[function(require,module,exports){
 'use strict';
 module.exports = function (str) {
 	return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
@@ -26380,7 +26645,7 @@ module.exports = function (str) {
 	});
 };
 
-},{}],258:[function(require,module,exports){
+},{}],259:[function(require,module,exports){
 (function (global){
 /* global window */
 'use strict';
@@ -26388,7 +26653,7 @@ module.exports = function (str) {
 module.exports = require('./ponyfill')(global || window || this);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./ponyfill":259}],259:[function(require,module,exports){
+},{"./ponyfill":260}],260:[function(require,module,exports){
 'use strict';
 
 module.exports = function symbolObservablePonyfill(root) {
@@ -26413,7 +26678,7 @@ module.exports = function symbolObservablePonyfill(root) {
 	return result;
 };
 
-},{}],260:[function(require,module,exports){
+},{}],261:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
