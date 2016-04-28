@@ -221,15 +221,14 @@ var Landing = function (_React$Component) {
 
             var dispatch = this.props.dispatch;
 
-            var connectingString = "Connecting";
             var login = document.getElementById("usernameinput").value;
-            var webSocket = new WebSocket("ws://localhost:3001");
-            console.log("WebSocket", webSocket);
-            var btn = document.getElementById("connectBtn");
+            var webSocket = new WebSocket("ws://localhost:3000");
+
             dispatch((0, _index.setUsername)(login));
             dispatch((0, _index.socketConnectInit)(webSocket.url));
             webSocket.onopen = function () {
                 console.log("websocket opened", webSocket);
+                dispatch((0, _index.socketOnOpen)());
                 _this2.context.router.push({
                     pathname: '/Main'
                 });
@@ -246,11 +245,11 @@ var Landing = function (_React$Component) {
                     { className: 'row' },
                     _react2.default.createElement(
                         'div',
-                        { className: 'col-sm-4 col-md-4 col-offset-4' },
+                        { className: 'col-sm-offset-4 col-md-offset-4 col-sm-4 col-md-4 text-center' },
                         _react2.default.createElement(
-                            'label',
-                            { htmlFor: 'username' },
-                            'Username: '
+                            'h2',
+                            { className: 'signinHeader' },
+                            'SIGN IN'
                         ),
                         _react2.default.createElement('input', { className: 'form-control', type: 'text', id: 'usernameinput', placeholder: 'Username' }),
                         _react2.default.createElement(
@@ -357,6 +356,12 @@ var socketConnectInit = exports.socketConnectInit = function socketConnectInit(h
     return {
         type: 'SOCKET_CONNECT_INIT',
         hostname: hostname
+    };
+};
+
+var socketOnOpen = exports.socketOnOpen = function socketOnOpen() {
+    return {
+        type: 'SOCKET_ON_OPEN'
     };
 };
 
@@ -478,6 +483,11 @@ var reducer = exports.reducer = function reducer() {
                 connecting: true,
                 connected: false,
                 hostname: action.hostname
+            });
+        case 'SOCKET_ON_OPEN':
+            return _extends({}, state, {
+                connecting: false,
+                connected: true
             });
         default:
             return state;
