@@ -10,6 +10,13 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 username: action.username
             }
+        case 'SOCKET_CONNECT_INIT':
+            return {
+                ...state,
+                connecting: true,
+                connected: false,
+                hostname: action.hostname
+            }
         default:
             return state;
     }
