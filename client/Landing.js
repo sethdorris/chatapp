@@ -48,4 +48,4 @@ Landing.contextTypes = {
     router: React.PropTypes.object.isRequired
 }
 
-export default connect(store=>store)(Landing);
+export default connect()(Landing);
