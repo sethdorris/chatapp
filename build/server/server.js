@@ -29,6 +29,15 @@ app.get('/', function (req, res) {
     });
 });
 
+wss.on('connection', function (ws) {
+
+    ws.on('message', function (message) {
+        console.log("Message data", JSON.parse(message));
+        ws.send(JSON.stringify({ message: "hello" }));
+        ws.send(JSON.stringify(message.data));
+    });
+});
+
 http.on('request', app);
 http.listen(3000, function () {
     console.log("Listening on " + http.address().port);

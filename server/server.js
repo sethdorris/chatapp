@@ -18,6 +18,16 @@ app.get('/', (req, res) => {
     );
 });
 
+wss.on('connection', (ws) => {
+
+    ws.on('message', (message) => {
+        console.log("Message data", JSON.parse(message))
+        ws.send(JSON.stringify({message: "hello"}))
+        ws.send(JSON.stringify(message.data));
+        
+    })
+})
+
 http.on('request', app);
 http.listen(3000, () => {
     console.log("Listening on " + http.address().port);
