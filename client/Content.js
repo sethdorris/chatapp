@@ -5,7 +5,7 @@ import ChatWindow from './ChatWindow';
 const Content = (props) => {
     return (
             <div className="col-md-8 col-xs-8 text-center content">
-                <ChatWindow username={this.props.username}/>
+                <ChatWindow username={props.username}/>
                 <Controls />
             </div>
         )
