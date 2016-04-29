@@ -21,6 +21,8 @@ var app = (0, _express2.default)();
 
 app.use(_express2.default.static(_path2.default.resolve('../')));
 
+var users = [];
+
 app.get('/', function (req, res) {
     res.sendFile(_path2.default.resolve("../index.html"), {}, function (err) {
         if (err) {
@@ -32,9 +34,10 @@ app.get('/', function (req, res) {
 wss.on('connection', function (ws) {
 
     ws.on('message', function (message) {
-        console.log("Message data", JSON.parse(message));
-        ws.send(JSON.stringify({ message: "hello" }));
-        ws.send(JSON.stringify(message.data));
+        var messageparse = JSON.parse(message);
+        users.push(messageparse.username);
+        console.log(users);
+        ws.send(JSON.stringify({ userarray: users }));
     });
 });
 

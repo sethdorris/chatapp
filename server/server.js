@@ -8,6 +8,8 @@ const app = express();
 
 app.use(express.static(path.resolve('../')));
 
+let users = [];
+
 app.get('/', (req, res) => {
     res.sendFile(path.resolve("../index.html"), {}, 
         (err) => {
@@ -21,12 +23,15 @@ app.get('/', (req, res) => {
 wss.on('connection', (ws) => {
 
     ws.on('message', (message) => {
-        console.log("Message data", JSON.parse(message))
-        ws.send(JSON.stringify({message: "hello"}))
-        ws.send(JSON.stringify(message.data));
+        let messageparse = JSON.parse(message);
+        users.push(messageparse.username);
+        console.log(users);
+        ws.send(JSON.stringify({userarray: users}))
         
     })
 })
+
+
 
 http.on('request', app);
 http.listen(3000, () => {

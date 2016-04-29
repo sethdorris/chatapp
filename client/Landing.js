@@ -22,7 +22,8 @@ class Landing extends React.Component {
         webSocket.onopen = () => {
             console.log("websocket opened", webSocket);
             webSocket.send(JSON.stringify({
-                type: "USER_CONNECTED"
+                type: "USER_CONNECTED",
+                username: login
             }))
             webSocket.onmessage = (message) => {
                 console.log(JSON.parse(message.data));
