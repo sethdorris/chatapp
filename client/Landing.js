@@ -21,6 +21,9 @@ class Landing extends React.Component {
         dispatch(socketConnectInit(webSocket.url));
         webSocket.onopen = () => {
             console.log("websocket opened", webSocket);
+            webSocket.send({
+                type: "USER_CONNECTED"
+            })
             dispatch(socketOnOpen())
             this.context.router.push({
                 pathname: '/Main'
