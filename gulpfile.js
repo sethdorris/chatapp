@@ -13,7 +13,7 @@ gulp.task('server-to-es2015', () => {
 });
 
 gulp.task('client-transform', () => {
-    var bundlesur = browserify('./client/app.js')
+    return browserify('./client/app.js', { debug: true })
                     .transform(babelify, { presets: ['es2015', 'react', 'stage-2'] })
                     .bundle()
                     .pipe(source('app.js'))
@@ -21,14 +21,8 @@ gulp.task('client-transform', () => {
 });
 
 gulp.task('copy', () => {
-    gulp.src('index.html')
-        .pipe(gulp.dest('./build'))
+    return gulp.src(['index.html', 'main.css'])
+            .pipe(gulp.dest('./build'))
 });
-
-/* gulp.task('lint', () => {
-    return gulp.src(['./client/*.js', './server/*.js'])
-            .pipe(jshint())
-            .pipe(jshint.reporter('default'))
-}) */
 
 gulp.task('default', ['server-to-es2015', 'client-transform', 'copy']);
