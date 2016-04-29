@@ -3,10 +3,11 @@ import Menu from './Menu';
 import Content from './Content';
 import Message from './Message';
 import {connect} from 'react-redux';
+const PropTypes = React.PropTypes;
 
 class ChatContainer extends React.Component {
-    constructor(props) {
-        super();
+    constructor(props, context) {
+        super(props, context);
 
     }
 
@@ -15,14 +16,26 @@ class ChatContainer extends React.Component {
     }
     
     render() {
+        const {username} = this.props;
+        console.log("Username", username);
         return (
             <div className="container dom">
                 <div className="row flexcontainer">
                     <Menu />
-                    <Content />
+                    <Content username={username}/>
                  </div>
             </div>
             )
     }
 };
-export default connect()(ChatContainer);
+
+ChatContainer.contextTypes = {
+    router: React.PropTypes.object.isRequired
+}
+
+function mapStateToProps(state) {
+    return {
+        username: state.username
+    }
+}
+export default connect(mapStateToProps)(ChatContainer);

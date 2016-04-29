@@ -35,7 +35,7 @@ var ChatWindow = function (_React$Component) {
     _createClass(ChatWindow, [{
         key: 'render',
         value: function render() {
-            var messagesArray = this.props.messages;
+
             return _react2.default.createElement(
                 'div',
                 { className: 'row' },
@@ -45,9 +45,12 @@ var ChatWindow = function (_React$Component) {
                     _react2.default.createElement(
                         'ul',
                         { className: 'messages' },
-                        messagesArray.map(function (message) {
-                            return _react2.default.createElement(_Message2.default, { content: message.content, key: message.id });
-                        })
+                        _react2.default.createElement(
+                            'li',
+                            null,
+                            this.props.username,
+                            ':'
+                        )
                     )
                 )
             );
@@ -104,18 +107,7 @@ var Content = function (_React$Component) {
     function Content(props) {
         _classCallCheck(this, Content);
 
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Content).call(this));
-
-        _this.state = {
-            messages: [{
-                id: 0,
-                content: "this is my content"
-            }, {
-                id: 1,
-                content: "I am just testing my second content item."
-            }]
-        };
-        return _this;
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(Content).call(this));
     }
 
     _createClass(Content, [{
@@ -130,8 +122,8 @@ var Content = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 { className: 'col-md-8 col-xs-8 text-center content' },
-                _react2.default.createElement(_ChatWindow2.default, { messages: this.state.messages }),
-                _react2.default.createElement(_Controls2.default, { send: this.send })
+                _react2.default.createElement(_ChatWindow2.default, { username: this.props.username }),
+                _react2.default.createElement(_Controls2.default, null)
             );
         }
     }]);
@@ -270,9 +262,7 @@ Landing.contextTypes = {
     router: _react2.default.PropTypes.object.isRequired
 };
 
-exports.default = (0, _reactRedux.connect)(function (store) {
-    return store;
-})(Landing);
+exports.default = (0, _reactRedux.connect)()(Landing);
 
 },{"./actions/index":7,"react":245,"react-redux":65,"react-router":103}],5:[function(require,module,exports){
 "use strict";
@@ -419,13 +409,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var PropTypes = _react2.default.PropTypes;
+
 var ChatContainer = function (_React$Component) {
     _inherits(ChatContainer, _React$Component);
 
-    function ChatContainer(props) {
+    function ChatContainer(props, context) {
         _classCallCheck(this, ChatContainer);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(ChatContainer).call(this));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ChatContainer).call(this, props, context));
     }
 
     _createClass(ChatContainer, [{
@@ -436,6 +428,9 @@ var ChatContainer = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var username = this.props.username;
+
+            console.log("Username", username);
             return _react2.default.createElement(
                 'div',
                 { className: 'container dom' },
@@ -443,7 +438,7 @@ var ChatContainer = function (_React$Component) {
                     'div',
                     { className: 'row flexcontainer' },
                     _react2.default.createElement(_Menu2.default, null),
-                    _react2.default.createElement(_Content2.default, null)
+                    _react2.default.createElement(_Content2.default, { username: username })
                 )
             );
         }
@@ -453,7 +448,17 @@ var ChatContainer = function (_React$Component) {
 }(_react2.default.Component);
 
 ;
-exports.default = (0, _reactRedux.connect)()(ChatContainer);
+
+ChatContainer.contextTypes = {
+    router: _react2.default.PropTypes.object.isRequired
+};
+
+function mapStateToProps(state) {
+    return {
+        username: state.username
+    };
+}
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(ChatContainer);
 
 },{"./Content":2,"./Menu":5,"./Message":6,"react":245,"react-redux":65}],10:[function(require,module,exports){
 'use strict';
