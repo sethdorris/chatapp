@@ -21,11 +21,11 @@ class ChatContainer extends React.Component {
         return (
             <div className="container dom">
                 <div className="row flexcontainer">
-                    <Menu />
+                    <Menu username={username}/>
                     <Content username={username}/>
                  </div>
             </div>
-            )
+        )
     }
 };
 
