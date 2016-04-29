@@ -29,7 +29,7 @@ var ChatWindow = function (_React$Component) {
     function ChatWindow(props) {
         _classCallCheck(this, ChatWindow);
 
-        return _possibleConstructorReturn(this, Object.getPrototypeOf(ChatWindow).call(this));
+        return _possibleConstructorReturn(this, Object.getPrototypeOf(ChatWindow).call(this, props));
     }
 
     _createClass(ChatWindow, [{
@@ -78,7 +78,7 @@ var Content = function Content(props) {
     return _react2.default.createElement(
         'div',
         { className: 'col-md-8 col-xs-8 text-center content' },
-        _react2.default.createElement(_ChatWindow2.default, { username: undefined.props.username }),
+        _react2.default.createElement(_ChatWindow2.default, { username: props.username }),
         _react2.default.createElement(_Controls2.default, null)
     );
 };
@@ -229,7 +229,29 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Menu = function Menu(props) {
-    return _react2.default.createElement("div", { className: "col-md-4 col-xs-4 text-center menu" });
+    return _react2.default.createElement(
+        "div",
+        { className: "col-md-4 col-xs-4 text-center menu" },
+        _react2.default.createElement(
+            "div",
+            null,
+            _react2.default.createElement(
+                "h3",
+                null,
+                "Online Users"
+            ),
+            props.username
+        ),
+        _react2.default.createElement(
+            "div",
+            null,
+            _react2.default.createElement(
+                "h3",
+                null,
+                "Channels"
+            )
+        )
+    );
 };
 
 exports.default = Menu;
@@ -388,7 +410,7 @@ var ChatContainer = function (_React$Component) {
                 _react2.default.createElement(
                     'div',
                     { className: 'row flexcontainer' },
-                    _react2.default.createElement(_Menu2.default, null),
+                    _react2.default.createElement(_Menu2.default, { username: username }),
                     _react2.default.createElement(_Content2.default, { username: username })
                 )
             );
