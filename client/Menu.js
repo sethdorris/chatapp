@@ -6,7 +6,6 @@ const Menu = (props) => {
             <div>
                 <h3>Online Users</h3>
                 {props.username}
-                //Code UL LI and map over an array of users to display all the online users
             </div>
             <div>
                 <h3>Channels</h3>
