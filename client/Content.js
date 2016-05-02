@@ -6,7 +6,7 @@ const Content = (props) => {
     return (
             <div className="col-md-8 col-xs-8 text-center content">
                 <ChatWindow username={props.username}/>
-                <Controls />
+                <Controls send={props.send}/>
             </div>
         )
 }
