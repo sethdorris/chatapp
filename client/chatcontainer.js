@@ -20,7 +20,7 @@ class ChatContainer extends React.Component {
     send() {
         const message = document.getElementById('message');
         const {dispatch} = this.props;
-        dispatch(sendMessage(message));
+        dispatch(sendMessage(message.value));
     }
     
     render() {
