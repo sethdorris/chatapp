@@ -1,4 +1,4 @@
-﻿const initialState = {username: '', messages: ''};
+﻿const initialState = {username: '', messages: []};
 export const reducer = (state = initialState, action) => {
     if (typeof state == 'undefined') {
         return {}
@@ -26,7 +26,7 @@ export const reducer = (state = initialState, action) => {
         case 'SEND_MESSAGE':
             return {
                 ...state, 
-                messages: action.message
+                messages: state.messages.concat(action.message)
             }
         default:
             return state;
