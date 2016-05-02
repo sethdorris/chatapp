@@ -4,6 +4,7 @@ import Content from './Content';
 import Message from './Message';
 import {connect} from 'react-redux';
 const PropTypes = React.PropTypes;
+import {sendMessage} from './actions/index';
 
 class ChatContainer extends React.Component {
     constructor(props, context) {
@@ -16,6 +17,7 @@ class ChatContainer extends React.Component {
     }
 
     send() {
+        const message = document.getElementById('#message');
 
     }
     
