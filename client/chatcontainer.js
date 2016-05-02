@@ -10,6 +10,7 @@ class ChatContainer extends React.Component {
     constructor(props, context) {
         super(props, context);
 
+        this.send = this.send.bind(this);
     }
 
     componentDidMount() {
@@ -17,7 +18,7 @@ class ChatContainer extends React.Component {
     }
 
     send() {
-        const message = document.getElementById('#message');
+        const message = document.getElementById('message');
         const {dispatch} = this.props;
         dispatch(sendMessage(message));
     }
@@ -40,9 +41,11 @@ ChatContainer.contextTypes = {
     router: React.PropTypes.object.isRequired
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
     return {
-        username: state.username
+        username: state.username,
+
     }
 }
+
 export default connect(mapStateToProps)(ChatContainer);
