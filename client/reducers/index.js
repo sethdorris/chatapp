@@ -23,12 +23,11 @@ export const reducer = (state = initialState, action) => {
                 connecting: false,
                 connected: true
             }
-        case 'SEND_MESSAGE' {
+        case 'SEND_MESSAGE':
             return {
                 ...state, 
                 messages: action.message
             }
-        }
         default:
             return state;
     }

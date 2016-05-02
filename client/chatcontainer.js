@@ -29,7 +29,7 @@ class ChatContainer extends React.Component {
             <div className="container dom">
                 <div className="row flexcontainer">
                     <Menu username={username}/>
-                    <Content username={username}/>
+                    <Content username={username} send={this.send}/>
                  </div>
             </div>
         )

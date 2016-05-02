@@ -18,7 +18,7 @@ export const socketOnOpen = () => {
     }
 }
 
-export const sendMessage = (message) {
+export const sendMessage = (message) => {
     return {
         type: 'SEND_MESSAGE',
         message
