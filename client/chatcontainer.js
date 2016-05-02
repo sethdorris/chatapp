@@ -30,7 +30,7 @@ class ChatContainer extends React.Component {
             <div className="container dom">
                 <div className="row flexcontainer">
                     <Menu username={username}/>
-                    <Content username={username} send={this.send}/>
+                    <Content username={username} send={this.send} message/>
                  </div>
             </div>
         )
@@ -44,7 +44,7 @@ ChatContainer.contextTypes = {
 const mapStateToProps = (state) => {
     return {
         username: state.username,
-
+        messages: state.messages
     }
 }
 

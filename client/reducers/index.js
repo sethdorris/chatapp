@@ -1,4 +1,4 @@
-﻿const initialState = {username: ''};
+﻿const initialState = {username: '', messages: ''};
 export const reducer = (state = initialState, action) => {
     if (typeof state == 'undefined') {
         return {}

@@ -7,11 +7,17 @@ const ChatWindow = (props) => {
         <div className="row">
             <div className="col-md-12 col-xs-12 chatwindow">
                 <ul className="messages">
-                            
+                      {this.message}      
                 </ul>
             </div>
         </div>
     )
 }
 
-export default Connect()(ChatWindow);
+const mapStateToProps = () => {
+    return {
+        message: state.messages
+    }
+}
+
+export default connect()(ChatWindow);
