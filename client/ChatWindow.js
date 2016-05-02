@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import Message from './Message';
+import {connect} from 'react-redux';
 
 const ChatWindow = (props) => {
     return (
@@ -13,4 +14,4 @@ const ChatWindow = (props) => {
     )
 }
 
-export default ChatWindow;
+export default Connect()(ChatWindow);
