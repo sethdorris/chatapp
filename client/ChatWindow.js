@@ -3,13 +3,13 @@ import Message from './Message';
 import {connect} from 'react-redux';
 
 const ChatWindow = (props) => {
-    const {message} = this.props;
+    const {message} = props;
 
     return (
         <div className="row">
             <div className="col-md-12 col-xs-12 chatwindow">
                 <ul className="messages">
-                      {this.message}      
+                      {props.message}      
                 </ul>
             </div>
         </div>
