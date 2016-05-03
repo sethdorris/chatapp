@@ -9,7 +9,11 @@ const ChatWindow = (props) => {
         <div className="row">
             <div className="col-md-12 col-xs-12 chatwindow">
                 <ul className="messages">
-                      {props.message}      
+                      {props.message.map((item) => {
+                                              return (
+                                                  <li>{item}</li>
+                                                  )
+                       })}      
                 </ul>
             </div>
         </div>

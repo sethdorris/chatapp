@@ -16,12 +16,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var WebSocketServer = require('ws').Server;
 var http = require('http').Server(app);
-var wss = new WebSocketServer({ server: http });
+var wss = new WebSocketServer({
+    server: http
+});
 var app = (0, _express2.default)();
 
 app.use(_express2.default.static(_path2.default.resolve('../')));
 
 var users = [];
+var currentUser = null;
 
 app.get('/', function (req, res) {
     res.sendFile(_path2.default.resolve("../index.html"), {}, function (err) {
@@ -35,9 +38,15 @@ wss.on('connection', function (ws) {
 
     ws.on('message', function (message) {
         var messageparse = JSON.parse(message);
-        users.push(messageparse.username);
-        console.log(users);
-        ws.send(JSON.stringify({ userarray: users }));
+
+        switch (messageparse.type) {
+            case "USER_CONNECTED":
+                users.push({ username: messageparse.username, id: users.length });
+                console.log(users);
+                ws.send(JSON.stringify(users));
+                currentUser = users[users.length - 1].id;
+                break;
+        }
     });
 });
 
