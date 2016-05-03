@@ -10,6 +10,7 @@
         }
     },
     sendmessage: () => {
+        this.connect();
         this.server.send(JSON.stringify({message: "hi"}));
     },
     getserver: () => {
