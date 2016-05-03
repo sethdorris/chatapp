@@ -16,10 +16,9 @@ class Landing extends React.Component {
     connectButton() {
         const {dispatch} = this.props;
         let login = document.getElementById("usernameinput").value
-        let server = ws.getserver();
-        server.onopen = () => {
-            console.log("Opened Server")
-        }
+        ws.sendmessage();
+        console.log("Fired");
+        console.log(ws);
         //dispatch(setUsername(login));
         //dispatch(socketConnectInit(webSocket.url));
         //webSocket.onopen = () => {

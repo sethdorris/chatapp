@@ -23,10 +23,9 @@ app.get('/', (req, res) => {
 
 
 wss.on('connection', (ws) => {
-    console.log("Client Length", wss.clients);
     ws.on('message', (message) => {
         let messageparse = JSON.parse(message);
-        
+        console.log(messageparse);
         switch (messageparse.type) {
             case "USER_CONNECTED":
                 users.push({username: messageparse.username});
