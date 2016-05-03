@@ -25,3 +25,10 @@ export const sendMessage = (message) => {
     }
 }
 
+export const passWSS = (server) => {
+    return {
+        type: 'PASS_WSS',
+        server
+    }
+}
+

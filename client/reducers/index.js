@@ -28,6 +28,11 @@ export const reducer = (state = initialState, action) => {
                 ...state, 
                 messages: state.messages.concat(action.message)
             }
+        case 'PASS_WSS':
+            return {
+                ...state,
+                server: action.server
+            }
         default:
             return state;
     }

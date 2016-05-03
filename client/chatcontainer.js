@@ -19,7 +19,9 @@ class ChatContainer extends React.Component {
 
     send() {
         const message = document.getElementById('message');
-        const {dispatch} = this.props;
+        const {dispatch, server} = this.props;
+        console.log(server)
+        console.log(dispatch)
         dispatch(sendMessage(message.value));
     }
     

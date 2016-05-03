@@ -1,7 +1,8 @@
 ﻿import React from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
-import {setUsername, socketConnectInit, socketOnOpen} from './actions/index';
+import ws from './WebSocket';
+import {setUsername, socketConnectInit, socketOnOpen, passWSS} from './actions/index';
 const PropTypes = React.PropTypes;
 
 
@@ -15,24 +16,24 @@ class Landing extends React.Component {
     connectButton() {
         const {dispatch} = this.props;
         let login = document.getElementById("usernameinput").value
-        let webSocket = new WebSocket("ws://localhost:3000");
-        
-        dispatch(setUsername(login));
-        dispatch(socketConnectInit(webSocket.url));
-        webSocket.onopen = () => {
-            console.log("websocket opened", webSocket);
-            webSocket.send(JSON.stringify({
-                type: "USER_CONNECTED",
-                username: login
-            }))
-            webSocket.onmessage = (message) => {
-                console.log(JSON.parse(message.data));
-            }
-            dispatch(socketOnOpen())
-            this.context.router.push({
-                pathname: '/Main'
-            })
-        };
+        let server = ws.getserver();
+        server.onopen = () => {
+            console.log("Opened Server")
+        }
+        //dispatch(setUsername(login));
+        //dispatch(socketConnectInit(webSocket.url));
+        //webSocket.onopen = () => {
+        //    console.log("websocket opened", webSocket);
+        //    webSocket.send(JSON.stringify({
+        //        type: "USER_CONNECTED",
+        //        username: login
+        //    }))
+        //    dispatch(socketOnOpen())
+        //    this.context.router.push({
+        //        pathname: '/Main'
+        //    })
+        //    dispatch(passWSS(webSocket));
+        //};
     }
 
     render() {
