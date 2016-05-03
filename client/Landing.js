@@ -2,7 +2,7 @@
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import ws from './WebSocket';
-import {setUsername, socketConnectInit, socketOnOpen, passWSS} from './actions/index';
+import {setUsername, socketConnectInit, socketOnOpen} from './actions/index';
 const PropTypes = React.PropTypes;
 
 
