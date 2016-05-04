@@ -22,6 +22,10 @@ class Landing extends React.Component {
         promise.then((data) => {
             console.log("Connected:", data);
             dispatch(socketOnOpen());
+            dispatch(setUsername(login));
+            this.context.router.push({
+                pathname: '/main'
+            })
         });
     }
 
