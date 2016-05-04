@@ -15,18 +15,26 @@ class Landing extends React.Component {
     connectButton() {
         const {dispatch} = this.props;
         let login = document.getElementById("usernameinput").value
-        let promise = new Promise((resolve, reject) => {
-            let connected = ws.connect();
-            resolve(connected);
-        });
-        promise.then((data) => {
-            console.log("Connected:", data);
-            dispatch(socketOnOpen());
-            dispatch(setUsername(login));
-            this.context.router.push({
-                pathname: '/main'
-            })
-        });
+        console.log("Login", login);
+        
+        //let promise = new Promise((resolve, reject) => {
+        //    let connected = ws.connect();
+        //    resolve(connected);
+        //});
+        //promise.then((data) => {
+        //    console.log("Connected:", data);
+        //    dispatch(socketOnOpen());
+        //    dispatch(setUsername(login));
+        //    this.context.router.push({
+        //        pathname: '/main'
+        //    })
+        //});
+        async function connect() {
+            await ws.connect();
+            console.log('CONNECTED!')
+            console.log(ws.connected);
+        };
+        connect();
     }
 
     render() {
