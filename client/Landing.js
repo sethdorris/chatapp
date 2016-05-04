@@ -17,8 +17,18 @@ class Landing extends React.Component {
         let login = document.getElementById("usernameinput").value
         console.log("Login", login);
         
-        let connected = await this.wsConnect()
-        connected ? console.log("CONNECTED", connected) : console.log("NOT CONNECTED", connected);
+        try {
+            let connected = await this.wsConnect()
+            if (connected) {
+                dispatch(socketOnOpen());
+                dispatch(setUsername(login));
+                this.context.router.push({
+                    pathname: '/main'
+                });
+            }
+        } catch (e) {
+            console.log("Failed to connect: ", e);
+        }
     }
 
     async wsConnect() {
