@@ -1,9 +1,8 @@
-﻿import React from 'react';
+﻿import React, {PropTypes} from 'react';
 import Menu from './Menu';
 import Content from './Content';
 import Message from './Message';
 import {connect} from 'react-redux';
-const PropTypes = React.PropTypes;
 import {sendMessage} from './actions/index';
 
 class ChatContainer extends React.Component {
@@ -19,10 +18,7 @@ class ChatContainer extends React.Component {
 
     send() {
         const message = document.getElementById('message');
-        const {dispatch, server} = this.props;
-        console.log(server)
-        console.log(dispatch)
-        dispatch(sendMessage(message.value));
+        const {dispatch} = this.props;
     }
     
     render() {
