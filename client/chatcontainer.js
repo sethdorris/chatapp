@@ -4,6 +4,7 @@ import Content from './Content';
 import Message from './Message';
 import {connect} from 'react-redux';
 import {sendMessage} from './actions/index';
+import ws from './WebSocket';
 
 class ChatContainer extends React.Component {
     constructor(props, context) {
