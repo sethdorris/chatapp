@@ -17,8 +17,11 @@ class ChatContainer extends React.Component {
        
     }
 
-    send() {
-        const message = document.getElementById('message');
+    async send() {
+        const message = document.getElementById('message').value;
+        if (ws.isConnected) {
+            await ws.sendmessage(message);
+        }
         const {dispatch} = this.props;
     }
     
