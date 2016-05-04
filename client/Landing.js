@@ -16,23 +16,14 @@ class Landing extends React.Component {
     connectButton() {
         const {dispatch} = this.props;
         let login = document.getElementById("usernameinput").value
-        ws.sendmessage();
-        console.log("Fired");
-        console.log(ws);
-        //dispatch(setUsername(login));
-        //dispatch(socketConnectInit(webSocket.url));
-        //webSocket.onopen = () => {
-        //    console.log("websocket opened", webSocket);
-        //    webSocket.send(JSON.stringify({
-        //        type: "USER_CONNECTED",
-        //        username: login
-        //    }))
-        //    dispatch(socketOnOpen())
-        //    this.context.router.push({
-        //        pathname: '/Main'
-        //    })
-        //    dispatch(passWSS(webSocket));
-        //};
+        let promise = new Promise((resolve, reject) => {
+            let connected = ws.connect();
+            resolve(connected);
+        });
+        promise.then((data) => {
+            console.log("Connected:", data);
+            dispatch(socketOnOpen());
+        });
     }
 
     render() {
