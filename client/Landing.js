@@ -1,9 +1,8 @@
-﻿import React from 'react';
+﻿import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import ws from './WebSocket';
 import {setUsername, socketConnectInit, socketOnOpen} from './actions/index';
-const PropTypes = React.PropTypes;
 
 
 class Landing extends React.Component {
