@@ -1,20 +1,15 @@
-﻿const server = {
+﻿let ws = new WebSocket("ws://localhost:3000");
+
+const server = {
     connected: false,
-    server: null,
-    connect: () => {
-        if (this.server !== null) {
-            this.server = new WebSocket("ws://localhost:3000");
-            this.server.onopen = () => {
-                this.connected = true
-            }
+    connect: function() {
+        if (ws.readyState == 1) {
+            this.connected = true;
         }
+        return this.connected;
     },
     sendmessage: () => {
-        this.connect();
-        this.server.send(JSON.stringify({message: "hi"}));
-    },
-    getserver: () => {
-        return server;
+        ws.send(JSON.stringify({message: "hi"}));
     }
 }
 
