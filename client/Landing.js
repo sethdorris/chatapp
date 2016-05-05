@@ -15,13 +15,17 @@ class Landing extends React.Component {
     async connectButton() {
         const {dispatch} = this.props;
         let login = document.getElementById("usernameinput").value
-        console.log("Login", login);
+        let messageobject = {
+            type: "USER_CONNECTED",
+            username: login
+        }
         
         try {
             let connected = await this.wsConnect()
             if (connected) {
                 dispatch(socketOnOpen());
                 dispatch(setUsername(login));
+                await ws.sendmessage(messageobject);
                 this.context.router.push({
                     pathname: '/main'
                 });
