@@ -52,7 +52,11 @@ wss.on('connection', function (ws) {
                 wss.broadcast(messageobject);
                 break;
             case "SEND_MESSAGE":
-
+                var message = {
+                    type: "FROMSERVER_NEWMESSAGE",
+                    content: messageparse.content
+                };
+                wss.broadcast(message);
                 break;
             default:
                 ws.send(JSON.stringify({ Error: "Could not handle your message." }));

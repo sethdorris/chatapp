@@ -3,15 +3,14 @@ import Message from './Message';
 import {connect} from 'react-redux';
 
 const ChatWindow = (props) => {
-    const {message} = props;
 
     return (
         <div className="row">
             <div className="col-md-12 col-xs-12 chatwindow">
                 <ul className="messages">
-                      {props.message.map((item) => {
+                      {props.messages.map((item) => {
                                               return (
-                                                  <li>{item}</li>
+                                                  <li>{props.username + " - " + item}</li>
                                                   )
                        })}      
                 </ul>
@@ -20,10 +19,4 @@ const ChatWindow = (props) => {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        message: state.messages
-    }
-}
-
-export default connect(mapStateToProps)(ChatWindow);
+export default connect()(ChatWindow);
