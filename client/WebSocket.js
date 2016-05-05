@@ -16,9 +16,12 @@ const server = {
         }
         return this.connected;
     },
-    sendmessage: async function(text) {
-        await ws.send(JSON.stringify({message: text}));
-        return console.log("You sent this message: ", JSON.stringify({message: text}));
+    sendmessage: async function(object) {
+        await ws.send(JSON.stringify(object));
+        return console.log("You sent this message: ", object);
+    },
+    getserver: function() {
+        return ws;
     }
 }
 
