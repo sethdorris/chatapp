@@ -41,7 +41,11 @@ wss.on('connection', (ws) => {
                 wss.broadcast(messageobject);
                 break;
             case "SEND_MESSAGE":
-
+                let message = {
+                    type: "FROMSERVER_NEWMESSAGE",
+                    content: messageparse.content
+                }
+                wss.broadcast(message);
                 break;
             default:
                 ws.send(JSON.stringify({Error: "Could not handle your message."}))
