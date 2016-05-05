@@ -33,6 +33,11 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 users: state.users.concat(action.users)
             }
+        case 'FROMSERVER_NEWMESSAGE':
+            return {
+                ...state,
+                messages: state.messages.concat(action.content)
+            }
         default:
             return state;
     }
