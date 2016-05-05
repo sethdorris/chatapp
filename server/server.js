@@ -21,6 +21,11 @@ app.get('/', (req, res) => {
     );
 });
 
+wss.broadcast = (data) => {
+    wss.clients.forEach((client) => {
+        client.send(JSON.stringify(data));
+    });
+};
 
 wss.on('connection', (ws) => {
     ws.on('message', (message) => {
@@ -28,9 +33,12 @@ wss.on('connection', (ws) => {
         console.log(messageparse);
         switch (messageparse.type) {
             case "USER_CONNECTED":
+                let messageobject =  {
+                    type: "FROMSERVER_USERCONNECTED",
+                    users: users
+                }
                 users.push({username: messageparse.username});
-                console.log(users);
-                ws.send(JSON.stringify(users));
+                wss.broadcast(messageobject);
                 break;
             case "SEND_MESSAGE":
 
