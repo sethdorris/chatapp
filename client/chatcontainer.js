@@ -14,7 +14,13 @@ class ChatContainer extends React.Component {
     }
 
     componentDidMount() {
-       
+        const {dispatch} = this.props;
+        let server = ws.getserver();
+        server.onmessage = (message) => {
+            let parsedAction = JSON.parse(message.data);
+            console.log(parsedAction);
+            dispatch(parsedAction);
+        }
     }
 
     async send() {
