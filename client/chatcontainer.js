@@ -25,20 +25,25 @@ class ChatContainer extends React.Component {
 
     async send() {
         const message = document.getElementById('message').value;
-        if (ws.isConnected) {
-            await ws.sendmessage(message);
+        let messageobject = {
+            type: "SEND_MESSAGE",
+            content: message
         }
-        const {dispatch} = this.props;
+        if (ws.isConnected) {
+            await ws.sendmessage(messageobject);
+        }
+        document.getElementById('message').value = "";
     }
     
     render() {
         const {username} = this.props;
-        console.log("Username", username);
+        const {messages} = this.props;
+        const {users} = this.props;
         return (
             <div className="container dom">
                 <div className="row flexcontainer">
                     <Menu username={username}/>
-                    <Content username={username} send={this.send} message/>
+                    <Content username={username} send={this.send} messages={messages} users={users}/>
                  </div>
             </div>
         )
@@ -52,7 +57,8 @@ ChatContainer.contextTypes = {
 const mapStateToProps = (state) => {
     return {
         username: state.username,
-        messages: state.messages
+        messages: state.messages,
+        users: state.users
     }
 }
 
