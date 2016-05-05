@@ -32,15 +32,24 @@ app.get('/', function (req, res) {
     });
 });
 
+wss.broadcast = function (data) {
+    wss.clients.forEach(function (client) {
+        client.send(JSON.stringify(data));
+    });
+};
+
 wss.on('connection', function (ws) {
     ws.on('message', function (message) {
         var messageparse = JSON.parse(message);
         console.log(messageparse);
         switch (messageparse.type) {
             case "USER_CONNECTED":
+                var messageobject = {
+                    type: "FROMSERVER_USERCONNECTED",
+                    users: users
+                };
                 users.push({ username: messageparse.username });
-                console.log(users);
-                ws.send(JSON.stringify(users));
+                wss.broadcast(messageobject);
                 break;
             case "SEND_MESSAGE":
 
