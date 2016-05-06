@@ -33,11 +33,11 @@ wss.on('connection', (ws) => {
         console.log(messageparse);
         switch (messageparse.type) {
             case "USER_CONNECTED":
+                users.push({username: messageparse.username});
                 let messageobject =  {
                     type: "FROMSERVER_USERCONNECTED",
                     users: users
-                }
-                users.push({username: messageparse.username});
+                }                
                 wss.broadcast(messageobject);
                 break;
             case "SEND_MESSAGE":
