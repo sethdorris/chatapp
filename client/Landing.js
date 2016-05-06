@@ -26,10 +26,13 @@ class Landing extends React.Component {
                 dispatch(socketOnOpen());
                 dispatch(setUsername(login));
                 await ws.sendmessage(messageobject);
-                ws.onmessage = (message) => {
-                    var parsed = JSON.parse(message.data);
-                    dispatch(parsed);
-                }
+                let promise = new Promise(
+                    (resolve, reject) => {
+                        ws.onmessage = (message) => {
+                            var parsed = JSON.parse(message.data);
+                            resolve(dispatch(parsed));
+                        }
+                });
                 this.context.router.push({
                     pathname: '/main'
                 });
