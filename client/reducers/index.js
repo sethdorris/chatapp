@@ -31,12 +31,12 @@ export const reducer = (state = initialState, action) => {
         case 'FROMSERVER_USERCONNECTED':
             return {
                 ...state,
-                users: state.users.concat(action.users)
+                users: action.users
             }
         case 'FROMSERVER_NEWMESSAGE':
             return {
                 ...state,
-                messages: state.messages.concat(action.content)
+                messages: state.messages.concat({content: action.content, sentby: action.sentby})
             }
         default:
             return state;
