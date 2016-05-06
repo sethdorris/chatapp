@@ -54,7 +54,8 @@ wss.on('connection', function (ws) {
             case "SEND_MESSAGE":
                 var message = {
                     type: "FROMSERVER_NEWMESSAGE",
-                    content: messageparse.content
+                    content: messageparse.content,
+                    sentby: messageparse.sentby
                 };
                 wss.broadcast(message);
                 break;
