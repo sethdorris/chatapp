@@ -5,7 +5,11 @@ const Menu = (props) => {
         <div className="col-md-4 col-xs-4 text-center menu">
             <div>
                 <h3>Online Users</h3>
-                {props.username}
+                <ul>
+                    {props.users.map((user) => {
+                        return <li>{user.username}</li>
+                    })}
+                </ul>
             </div>
             <div>
                 <h3>Channels</h3>
