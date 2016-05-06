@@ -24,10 +24,12 @@ class ChatContainer extends React.Component {
     }
 
     async send() {
+        const {username} = this.props;
         const message = document.getElementById('message').value;
         let messageobject = {
             type: "SEND_MESSAGE",
-            content: message
+            content: message,
+            sentby: {username}
         }
         if (ws.isConnected) {
             await ws.sendmessage(messageobject);
@@ -42,11 +44,87 @@ class ChatContainer extends React.Component {
         return (
             <div className="container dom">
                 <div className="row flexcontainer">
-                    <Menu username={username}/>
+                    <Menu username={username} users={users}/>
                     <Content username={username} send={this.send} messages={messages} users={users}/>
                  </div>
             </div>
         )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 };
 
