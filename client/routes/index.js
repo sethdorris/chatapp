@@ -15,8 +15,6 @@ const store = createStore(
     applyMiddleware(logger)
 );
 
-console.log("store",store.getState());
-
 const routes = (
     <Provider store={store}>
         <Router history={hashHistory}>
