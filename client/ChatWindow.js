@@ -8,10 +8,10 @@ const ChatWindow = (props) => {
         <div className="row">
             <div className="col-md-12 col-xs-12 chatwindow">
                 <ul className="messages">
-                      {props.messages.map((item) => {
-                                              return (
-                                                  <li>{item.sentby.username + " - " + item.content}</li>
-                                                  )
+                      {props.messages.map((item, index) => {
+                          return (
+                              <li key={index}>{item.sentby.username + " - " + item.content}</li>
+                          )
                        })}      
                 </ul>
             </div>
