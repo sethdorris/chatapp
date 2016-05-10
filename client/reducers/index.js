@@ -31,7 +31,8 @@ export const reducer = (state = initialState, action) => {
         case 'FROMSERVER_USERCONNECTED':
             return {
                 ...state,
-                users: action.users
+                users: action.users,
+                messages: state.messages.concat({content: action.username + " has connected.", sentby: "Server"})
             }
         case 'FROMSERVER_NEWMESSAGE':
             return {
