@@ -10,7 +10,7 @@ const ChatWindow = (props) => {
                 <ul className="messages">
                       {props.messages.map((item, index) => {
                           return (
-                              <li key={index}>{item.sentby.username + " - " + item.content}</li>
+                              <li key={index}>{item.sentby.username ? item.sentby.username + " - " + item.content : item.content}</li>
                           )
                        })}      
                 </ul>
