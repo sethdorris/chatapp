@@ -61,7 +61,8 @@ wss.on('connection', function (ws) {
                 console.log("session username", sess.username);
                 var messageobject = {
                     type: "FROMSERVER_USERCONNECTED",
-                    users: users
+                    users: users,
+                    username: messageparse.username
                 };
                 wss.broadcast(messageobject);
                 break;
