@@ -23,8 +23,11 @@ gulp.task('client-transform', () => {
 });
 
 gulp.task('copy', () => {
-    return gulp.src(['index.html', 'main.css'])
+            gulp.src('index.html')
             .pipe(gulp.dest('./build'))
+            gulp.src('main.css')
+            .pipe(gulp.dest('./build/client'))
+
 });
 
 gulp.task('default', ['server-to-es2015', 'client-transform', 'copy']);
