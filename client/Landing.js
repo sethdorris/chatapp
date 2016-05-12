@@ -8,7 +8,6 @@ import {setUsername, socketConnectInit, socketOnOpen} from './actions/index';
 class Landing extends React.Component {
     constructor(props, context) {
         super(props, context);
-
         this.connectButton = this.connectButton.bind(this);
     }
 
@@ -66,4 +65,10 @@ Landing.contextTypes = {
     router: React.PropTypes.object.isRequired
 }
 
-export default connect()(Landing);
+function mapStateToProps(state) {
+    return {
+        users: state.users
+    }
+} 
+
+export default connect(mapStateToProps)(Landing);

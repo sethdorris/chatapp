@@ -36,6 +36,9 @@ app.get('/', function (req, res, next) {
 wss.broadcast = function (data) {
     wss.clients.forEach(function (client) {
         client.send(JSON.stringify(data));
+        if (client.id === "Seth") {
+            console.log(client.id);
+        }
     });
 };
 
