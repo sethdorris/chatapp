@@ -12,10 +12,6 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
-var _expressSession = require('express-session');
-
-var _expressSession2 = _interopRequireDefault(_expressSession);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var WebSocketServer = require('ws').Server;
@@ -26,17 +22,10 @@ var wss = new WebSocketServer({
 var app = (0, _express2.default)();
 
 app.use(_express2.default.static(_path2.default.join(__dirname, "../client"), { index: false }));
-app.use((0, _expressSession2.default)({
-    secret: "chatappsecret",
-    resave: false,
-    saveUninitialized: false
-}));
 
 var users = [];
-var sess = void 0;
 
 app.get('/', function (req, res, next) {
-    sess = req.session;
     res.sendFile(_path2.default.resolve("../index.html"), {}, function (err) {
         if (err) {
             console.log("Error grabbing Index", err);
@@ -51,14 +40,14 @@ wss.broadcast = function (data) {
 };
 
 wss.on('connection', function (ws) {
+
     ws.on('message', function (message) {
         var messageparse = JSON.parse(message);
         console.log(messageparse);
         switch (messageparse.type) {
             case "USER_CONNECTED":
-                users.push({ username: messageparse.username });
-                sess.username = messageparse.username;
-                console.log("session username", sess.username);
+                ws.id = messageparse.username;
+                users.push(messageparse.username);
                 var messageobject = {
                     type: "FROMSERVER_USERCONNECTED",
                     users: users,
@@ -80,7 +69,18 @@ wss.on('connection', function (ws) {
     });
 
     ws.on('close', function () {
-        console.log(sess.username + " has disconnected");
+        for (var i = 0; i < users.length; i++) {
+            if (users[i] === ws.id) {
+                users.splice(i, 1);
+            }
+        }
+        var disconnectmsg = {
+            type: "FROMSERVER_USERDISCONNECT",
+            content: ws.id + " has disconnected from the server.",
+            sentby: "Server",
+            onlineusers: users
+        };
+        wss.broadcast(disconnectmsg);
     });
 });
 
