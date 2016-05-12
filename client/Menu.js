@@ -7,7 +7,7 @@ const Menu = (props) => {
                 <h3>Online Users</h3>
                 <ul>
                     {props.users.map((user) => {
-                        return <li>{user.username}</li>
+                        return <li>{user}</li>
                     })}
                 </ul>
             </div>
