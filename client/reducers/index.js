@@ -39,6 +39,12 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 messages: state.messages.concat({content: action.content, sentby: action.sentby})
             }
+        case 'FROMSERVER_USERDISCONNECT':
+            return {
+                ...state,
+                messages: state.messages.concat({content: action.content, sentby: action.sentby}),
+                users: action.onlineusers
+            }
         default:
             return state;
     }
