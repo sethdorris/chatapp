@@ -16,7 +16,7 @@ This application was built using the following technology:
 * Browserify
 * Gulp
 
-You can use this application by cloning the repo. If you make any changes to the code you will need to run transpile the code into build format again by running the default gulp task, by typing `gulp` in the project root in terminal.
+You can use this application by cloning the repo. If you make any changes to the code you will need to transpile the code into build format again by running the default gulp task, by typing `gulp` in the project root in terminal.
 
 To serve the application change directory to `build/server` and run `node server.js`.
 
