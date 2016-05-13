@@ -59,11 +59,19 @@ wss.on('connection', function (ws) {
                 wss.broadcast(messageobject);
                 break;
             case "SEND_MESSAGE":
+                var time = new Date();
+                var cHr = time.getUTCHours() - time.getTimezoneOffset() / 60;
+                var cMin = time.getUTCMinutes();
+                if (cMin < 10) {
+                    cMin = "0" + cMin;
+                }
                 var message = {
                     type: "FROMSERVER_NEWMESSAGE",
                     content: messageparse.content,
-                    sentby: messageparse.sentby
+                    sentby: messageparse.sentby,
+                    timestamp: '[' + cHr + ':' + cMin + ']'
                 };
+                console.log(message.timestamp);
                 wss.broadcast(message);
                 break;
             default:
