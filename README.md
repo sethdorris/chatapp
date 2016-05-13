@@ -42,3 +42,4 @@ and run
 * Create multiple channels
 * Create user roles
 * Create client commands
+* Refactor Server.js into modules for handling message actions
