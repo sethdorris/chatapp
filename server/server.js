@@ -48,11 +48,19 @@ wss.on('connection', (ws) => {
                 wss.broadcast(messageobject);
                 break;
             case "SEND_MESSAGE":
+                let time = new Date();
+                let cHr = time.getUTCHours() - (time.getTimezoneOffset() / 60);
+                let cMin = time.getUTCMinutes();
+                if (cMin < 10) {
+                    cMin = "0" + cMin;
+                }
                 let message = {
                     type: "FROMSERVER_NEWMESSAGE",
                     content: messageparse.content,
-                    sentby: messageparse.sentby
+                    sentby: messageparse.sentby,
+                    timestamp: `[${cHr}:${cMin}]`
                 }
+                console.log(message.timestamp)
                 wss.broadcast(message);
                 break;
             default:
