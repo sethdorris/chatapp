@@ -42,5 +42,5 @@ and run
 * Create multiple channels
 * Create user roles
 * Create client commands
-* Refactor Server.js into modules for handling message actions
+* Refactor Server.js into modules for handling message actions [began 5/16]
 * Refactor Server side storage of connected users from an Array to an Object
