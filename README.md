@@ -18,7 +18,7 @@ This application was built using the following technology:
 
 You can use this application by cloning the repo and in the terminal from the project root run
 
-`npm install`
+**`npm install`**
 
 If you make any changes to the code you will need to transpile the code into build format again by running the default gulp task, by typing
 
@@ -33,7 +33,7 @@ To serve the application change directory to
 
 and run
 
-`node server.js`.
+**`node server.js`**.
 
 #####Things left to do:
 * Client side username verification (ensure no duplicate usernames)
